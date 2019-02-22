@@ -5,8 +5,10 @@ module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
     
-    router.post('/login',routes.login);
-
+    router.get('/',(req,res)=>{
+        res.send('Welcome Bitches');
+    });
+    router.post('/login',auth.login);
     return router;
 }
 

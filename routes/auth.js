@@ -1,11 +1,19 @@
 
-const db = require('../models/dbcon.js')
+const mysql = require('mysql');
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+});
 
-
-
-
-
-
+db.connect((err)=> {
+    if(err){
+        console.log(err);
+        return;
+    }
+    else console.log('Database Connected');
+})
 
 module.exports = (passport) =>{
     let exp = {};
@@ -13,28 +21,32 @@ module.exports = (passport) =>{
     exp.login = (req,res) =>{
         let err,query;
 
-        query = 'SELECT * FROM Users WHERE username = ? AND pass = ?';
-        db.query(query,[req.body.username,req.body.pass],(err,rows,fields)=>{
+        sql = 'SELECT * FROM Users WHERE username = ? AND pass = ?';
+        db.query(sql,[req.body.username,req.body.pass],(err,row,fields)=>{
             if(err){
                 console.log(err);
-                res.sendStatus(404);
+                return res.sendStatus(404);
             }
             else{
-                if(!row){
-                    console.log('Invalid username/password');/
-                    res.sendStatus(404).send('Invalid username/password');
+                if(!row.length){
+                    console.log('Invalid username/password');
+                    return res.status(404).send('Invalid username/password');
                 }
                 else {
                     req.login(row[0],err=>{
                         if(err){
                             console.log(err)
-                            res.sendStatus(404);
+                            return res.send('here second error');
                         }
-                        else return res.sendStatus(200).send('Login Successful');
+                        else {
+                            console.log(req.user);
+                            return res.status(200).send('Login Successful');
+                        }
                     });
                 }
             }
         });
 
     };
+    return exp;
 }
