@@ -6,6 +6,6 @@ const connection = mysql.createConnection({
     database: process.env.DBNAME
 });
 
-moddule.exports={
+module.exports={
     connection
 };
