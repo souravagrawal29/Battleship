@@ -29,14 +29,13 @@ module.exports = (passport) =>{
             }
             else{
                 if(!row.length){
-                    console.log('Invalid username/password');
                     return res.status(404).send('Invalid username/password');
                 }
                 else {
                     req.login(row[0],err=>{
                         if(err){
-                            console.log(err)
-                            return res.send('here second error');
+                            console.log(err);
+                            return res.status(404).send(err);
                         }
                         else {
                             console.log(req.user);
