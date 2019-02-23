@@ -1,5 +1,5 @@
 CREATE TABLE `Users` (
-	`uid` INT(11) NOT NULL,
+	`uid` INT(11) NOT NULL AUTO_INCREMENT,
 	`username` varchar(10) NOT NULL,
 	`pass` varchar(10) NOT NULL,
 	`access` BINARY(2) NOT NULL,
