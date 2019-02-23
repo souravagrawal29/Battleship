@@ -5,12 +5,12 @@ module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
     
-    app.post('/login', 
-	passport.authenticate('local', { failureRedirect: '/login' }),
-		function(req, res) {
-			res.redirect('/');
-	});
+    router.get('/',(req,res)=>{
+        res.send('Welcome Bitches');
+    });
 
+    router.post('/login',auth.login);
+    
     return router;
 }
 
