@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 
 module.exports = (passport) =>{
@@ -9,8 +10,14 @@ module.exports = (passport) =>{
         res.send('Welcome Bitches');
     });
 
-    router.post('/login',auth.login);
+    router.get('/login', (req, res) => {
+		res.sendFile(path.resolve(__dirname + '/../views/login.html'));
+	});
+
+    router.post('/login',auth.login, (req, res) => {
+    	console.log(req.user);
+    	res.redirect('/');
+    });
     
     return router;
 }
-
