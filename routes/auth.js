@@ -1,11 +1,4 @@
-
 const db = require('../models/dbcon.js')
-
-
-
-
-
-
 
 module.exports = (passport) =>{
     let exp = {};
@@ -21,7 +14,7 @@ module.exports = (passport) =>{
             }
             else{
                 if(!row){
-                    console.log('Invalid username/password');/
+                    console.log('Invalid username/password');
                     res.sendStatus(404).send('Invalid username/password');
                 }
                 else {
