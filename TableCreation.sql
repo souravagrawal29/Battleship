@@ -1,8 +1,8 @@
 CREATE TABLE `Users` (
-	`uid` INT(11) NOT NULL AUTO_INCREMENT,
+	`uid` INT(11) NOT NULL,
 	`username` varchar(10) NOT NULL,
 	`pass` varchar(10) NOT NULL,
-	`access` INT(5) NOT NULL,
+	`access` BINARY(2) NOT NULL,
 	`score` INT(11) NOT NULL,
 	`missile` INT(11) NOT NULL,
 	PRIMARY KEY (`uid`)
@@ -11,18 +11,22 @@ CREATE TABLE `Users` (
 CREATE TABLE `Questions` (
 	`qid` INT(11) NOT NULL AUTO_INCREMENT,
 	`body` TEXT NOT NULL,
-	`points` INT(11) NOT NULL,
+	`points` INT NOT NULL,
 	`answer` VARCHAR(255) NOT NULL,
-	`test case 1` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`qid`)
 );
 
-CREATE TABLE `Logs` (
+CREATE TABLE `Question logs` (
 	`uid` INT(11) NOT NULL,
 	`qid` INT(11) NOT NULL,
-	`hit/miss` BOOLEAN NOT NULL,
-	`row` INT NOT NULL,
-	`col` INT NOT NULL
+	`solved/unsolved` BOOLEAN NOT NULL
+);
+
+CREATE TABLE `Ship logs` (
+	`uid` INT(11) NOT NULL,
+	`row` INT(11) NOT NULL,
+	`col` INT(11) NOT NULL,
+	`hit/miss` BOOLEAN NOT NULL
 );
 
 CREATE TABLE `Grid` (
@@ -32,9 +36,10 @@ CREATE TABLE `Grid` (
 	`isactive` BOOLEAN NOT NULL
 );
 
-ALTER TABLE `Logs` ADD CONSTRAINT `Logs_fk0` FOREIGN KEY (`uid`) REFERENCES `Users`(`uid`);
+ALTER TABLE `Question logs` ADD CONSTRAINT `Question logs_fk0` FOREIGN KEY (`uid`) REFERENCES `Users`(`uid`);
 
-ALTER TABLE `Logs` ADD CONSTRAINT `Logs_fk1` FOREIGN KEY (`qid`) REFERENCES `Questions`(`qid`);
+ALTER TABLE `Question logs` ADD CONSTRAINT `Question logs_fk1` FOREIGN KEY (`qid`) REFERENCES `Questions`(`qid`);
+
+ALTER TABLE `Ship logs` ADD CONSTRAINT `Ship logs_fk0` FOREIGN KEY (`uid`) REFERENCES `Users`(`uid`);
 
 ALTER TABLE `Grid` ADD CONSTRAINT `Grid_fk0` FOREIGN KEY (`uid`) REFERENCES `Users`(`uid`);
-
