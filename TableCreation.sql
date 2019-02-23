@@ -10,9 +10,15 @@ CREATE TABLE `Users` (
 
 CREATE TABLE `Questions` (
 	`qid` INT(11) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(255) NOT NULL,
 	`body` TEXT NOT NULL,
-	`points` INT NOT NULL,
-	`answer` VARCHAR(255) NOT NULL,
+	`test case 1` VARCHAR(255) NOT NULL,
+	`test case 2` VARCHAR(255) NOT NULL,
+	`test case 3` VARCHAR(255) NOT NULL,
+	`answer 1` VARCHAR(255) NOT NULL,
+	`answer 2` VARCHAR(255) NOT NULL,
+	`answer 3` VARCHAR(255) NOT NULL,
+	`points` INT(11) NOT NULL,
 	PRIMARY KEY (`qid`)
 );
 
