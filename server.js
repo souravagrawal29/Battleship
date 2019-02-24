@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const db = require('./models/dbcon')
 
-require('./config/passport')(passport);
+
 
 db.connect((err) =>{
     if(err){
@@ -22,7 +23,7 @@ app.use(session({
     secret: 'battleship19',
     resave: false,
     saveUninitialized: false,
-    cookie:{ secure: true}
+    cookie:{ secure: true, maxAge: 172800000}
 }));
 
 passport.use(new Strategy({
@@ -44,12 +45,15 @@ passport.use(new Strategy({
         });
     }));
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
+
+require('./config/passport')(passport);
 
 app.use('/',require('./routes')(passport));
 

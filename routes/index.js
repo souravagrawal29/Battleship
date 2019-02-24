@@ -18,6 +18,9 @@ module.exports = (passport) =>{
     	console.log(req.user);
     	res.redirect('/');
     });
+    router.ger('/questions' (req,res) =>{
+        console.log(req.user); // this gives undefined afer logging in 
+    });
     
     return router;
 }
