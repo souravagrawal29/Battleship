@@ -1,9 +1,11 @@
 module.exports = (passport) => {
     passport.serializeUser((User,done) => {
-      return done(null,User);
+    	console.log("Serialized");
+    	return done(null,User);
     });
   
     passport.deserializeUser((User,done) => {
-      return done(null,User);    
+    	console.log("Deserialized");
+    	return done(null,User);    
     });
 }

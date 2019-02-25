@@ -11,16 +11,18 @@ module.exports = (passport) =>{
     });
 
     router.get('/login', (req, res) => {
-		res.sendFile(path.resolve(__dirname + '/../views/login.html'));
+		res.render('layouts/main');
 	});
 
-    router.post('/login',auth.login, (req, res) => {
-    	console.log(req.user);
-    	res.redirect('/');
+    router.post('/login', auth.login, (req, res) => {
+    	// console.log(req.session);
+        // console.log(req.isAuthenticated()); // true
+    	res.redirect('/questions');
     });
     router.get('/questions', (req,res) =>{
-        console.log(req.user);
-        res.send('In the questions route'); // this gives undefined afer logging in 
+        // console.log(req.user);
+        // console.log(req.isAuthenticated()); // true
+        res.send('In the questions route');
     });
     
     return router;
