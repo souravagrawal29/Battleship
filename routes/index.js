@@ -2,25 +2,30 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
+const isLoggedIn = (req,res,next) =>{
+    if(req.isAuthenticated())
+        next();
+    else
+        res.redirect('/');
+}
+
 module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
+    const user = require('./user')(passport);
     
     router.get('/',(req,res)=>{
-        res.send('Welcome Bitches');
+        res.render('layouts/main');
     });
 
-    router.get('/login', (req, res) => {
-		res.render('layouts/main');
-	});
+    //auth routes
+    router.post('/login', auth.login);
 
-    router.post('/login', auth.login, (req, res) => {
-    	res.redirect('/questions');
-    });
-    
-    router.get('/questions', (req,res) =>{
-        res.send(req.user);
-    });
+    //user routes 
+    router.get('/user',isLoggedIn,user.home)
+    router.get('/questions',isLoggedIn,user.questions);
+    router.get('/battleship',isLoggedIn,user.battleship);
+
     
     return router;
 }

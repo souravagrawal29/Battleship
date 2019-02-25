@@ -223,6 +223,10 @@ input[type=text]:placeholder {
   animation-delay: 0.8s;
 }
 
+.logo{
+  border-radius: 10px
+}
+
 .fadeIn.fourth {
   -webkit-animation-delay: 1s;
   -moz-animation-delay: 1s;
