@@ -15,14 +15,11 @@ module.exports = (passport) =>{
 	});
 
     router.post('/login', auth.login, (req, res) => {
-    	// console.log(req.session);
-        // console.log(req.isAuthenticated()); // true
     	res.redirect('/questions');
     });
+    
     router.get('/questions', (req,res) =>{
-        // console.log(req.user);
-        // console.log(req.isAuthenticated()); // true
-        res.send('In the questions route');
+        res.send(req.user);
     });
     
     return router;

@@ -9,8 +9,6 @@ const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const db = require('./models/dbcon')
 
-
-
 db.connect((err) =>{
     if(err){
         console.log(err);
@@ -24,8 +22,7 @@ const app = express();
 app.use(session({
     secret: 'battleship19',
     resave: false,
-    saveUninitialized: false,
-    // cookie:{ secure: true, maxAge: 172800000}
+    saveUninitialized: false
 }));
 
 passport.use(new Strategy({
@@ -47,6 +44,7 @@ passport.use(new Strategy({
         });
     })
 );
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
