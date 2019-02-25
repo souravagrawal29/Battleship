@@ -23,7 +23,7 @@ CREATE TABLE `Users` (
 	`access` INT(11) NOT NULL DEFAULT '0',
 	`score` INT(11) NOT NULL DEFAULT '0',
 	`missile` INT(11) NOT NULL DEFAULT '0',
-	`isloggedin` INT(11) NOT NULL DEFAULT '0',
+	`isloggedin` INT(11) NOT NULL,
 	PRIMARY KEY (`uid`)
 );
 
@@ -49,15 +49,17 @@ CREATE TABLE `Questions` (
 CREATE TABLE `QLogs` (
 	`uid` INT(11) NOT NULL,
 	`qid` INT(11) NOT NULL,
-	`solved` INT(11) NOT NULL,
-	`attempt_no` INT(11) NOT NULL
+	`solved` BOOLEAN NOT NULL,
+	`attempt_no` INT(11) NOT NULL,
+	`logtime` TIMESTAMP NOT NULL
 );
 
 CREATE TABLE `Shiplogs` (
 	`uid` INT(11) NOT NULL,
 	`row` INT(11) NOT NULL,
 	`col` INT(11) NOT NULL,
-	`hit` BOOLEAN NOT NULL
+	`hit` BOOLEAN NOT NULL,
+	`logtime` TIMESTAMP NOT NULL
 );
 
 CREATE TABLE `Grid` (
