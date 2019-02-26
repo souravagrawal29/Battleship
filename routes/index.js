@@ -13,7 +13,7 @@ module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
     const user = require('./user')(passport);
-    const user = require('./admin')(passport);
+    const admin = require('./admin')(passport);
     
     router.get('/',(req,res)=>{
         res.render('layouts/main');
