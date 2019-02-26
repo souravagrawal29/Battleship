@@ -1,3 +1,5 @@
+DELETE FROM Users;
+
 INSERT INTO Users (username, pass, access, score, missile, isloggedin) VALUES ('user1', 'pass1', 0, 0, 0, 0);
 
 INSERT INTO Users (username, pass, access, score, missile, isloggedin) VALUES ('user2', 'pass2', 0, 0, 0, 0);
@@ -13,3 +15,5 @@ INSERT INTO Users (username, pass, access, score, missile, isloggedin) VALUES ('
 INSERT INTO Users (username, pass, access, score, missile, isloggedin) VALUES ('user7', 'pass7', 0, 0, 0, 0);
 
 INSERT INTO Users (username, pass, access, score, missile, isloggedin) VALUES ('user8', 'pass8', 0, 0, 0, 0);
+
+INSERT INTO Users (username, pass, access, score, missile, isloggedin) VALUES ('admin', 'admin', 1, 0, 0, 0);

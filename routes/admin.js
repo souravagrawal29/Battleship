@@ -1,12 +1,13 @@
 const db = require('../models/dbcon');
+const grid = require('../grid/loadgrid');
 
 module.exports =  () => {
     let exp = {};
 
-    exp.addquestion = (req,res) =>{
-        if(req.method=='GET')
+    exp.addquestion = (req,res) => {
+        if (req.method == 'GET')
         	res.send('Inside add question');
-        else if(req.method=='POST') {
+        else if (req.method == 'POST') {
         	let insertJson = {};
         	try {
         		insertJson['title'] = req.body['title'].toString().trim();
@@ -28,7 +29,7 @@ module.exports =  () => {
         		return res.status(500).send('Internal error');
         	}
 
-        	db.query("INSERT INTO Questions SET ?",[insertJson],(err,result) => {
+        	db.query("INSERT INTO Questions SET ?", [insertJson], (err, result) => {
         		if(err) {
         			console.log(err);
         			return res.status(500).send('Internal error');
@@ -87,8 +88,13 @@ module.exports =  () => {
                 console.log('Question updated');
                 res.redirect('/questions');
             });
-        }        
+        }
     };
+
+    exp.initgrid = (req, res) => {
+        grid.refreshgrid()
+        .then(grid.load());
+    }
     
     return exp;
 };

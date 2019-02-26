@@ -2,15 +2,15 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
-const isLoggedIn = (req,res,next) =>{
+const isLoggedIn = (req, res, next) =>{
     if(req.isAuthenticated())
         next();
     else
         res.redirect('/');
 }
 
-const isAdminLoggedIn = (req,res,next) => {
-    if(req.isAuthenticated() && req.user[0].access==1)
+const isAdminLoggedIn = (req, res, next) => {
+    if(req.isAuthenticated() && req.user[0].access == 1)
         return next();
     else if(req.isAuthenticated())
         res.send('No admin permissions');
@@ -32,16 +32,17 @@ module.exports = (passport) =>{
     router.post('/login', auth.login);
 
     //user routes 
-    router.get('/user',isLoggedIn,user.home);
-    router.get('/questions',isLoggedIn,user.questions);
-    router.get('/battleship',isLoggedIn,user.battleship);
+    router.get('/user', isLoggedIn, user.home);
+    router.get('/questions', isLoggedIn, user.questions);
+    router.get('/battleship', isLoggedIn, user.battleship);
     router.get('/questions/:id', isLoggedIn, user.questionbyid);
 
     //admin routes
-    router.get('/addquestion',isAdminLoggedIn,admin.addquestion);
-    router.get('/updatequestion/:id',isAdminLoggedIn,admin.updatequestion);
-    router.post('/addquestion',isAdminLoggedIn,admin.addquestion);
-    router.post('/updatequestion/:id',isAdminLoggedIn,admin.updatequestion);
+    router.get('/addquestion', isAdminLoggedIn, admin.addquestion);
+    router.get('/updatequestion/:id', isAdminLoggedIn, admin.updatequestion);
+    router.post('/addquestion', isAdminLoggedIn, admin.addquestion);
+    router.post('/updatequestion/:id', isAdminLoggedIn, admin.updatequestion);
+    router.get('/updategrid', isAdminLoggedIn, admin.initgrid);
     
     return router;
 }
