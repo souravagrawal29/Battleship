@@ -13,6 +13,7 @@ module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
     const user = require('./user')(passport);
+    const user = require('./admin')(passport);
     
     router.get('/',(req,res)=>{
         res.render('layouts/main');
@@ -26,6 +27,10 @@ module.exports = (passport) =>{
     router.get('/questions',isLoggedIn,user.questions);
     router.get('/battleship',isLoggedIn,user.battleship);
     router.get('/questions/:id', isLoggedIn, user.questionbyid);
+
+    //admin routes
+    router.post('/addquestion',isLoggedIn,admin.addquestion);
+    router.put('/updatequestion/:id',isLoggedIn,admin.updatequestion);
 
     
     return router;
