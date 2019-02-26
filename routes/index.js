@@ -9,11 +9,20 @@ const isLoggedIn = (req,res,next) =>{
         res.redirect('/');
 }
 
+const isAdminLoggedIn = (req,res,next) => {
+    if(req.isAuthenticated() && req.user[0].access==1)
+        return next();
+    else if(req.isAuthenticated())
+        res.send('No admin permissions');
+    else
+        res.redirect('/');
+}
+
 module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
     const user = require('./user')(passport);
-    const user = require('./admin')(passport);
+    const admin = require('./admin')(passport);
     
     router.get('/',(req,res)=>{
         res.render('layouts/main');
@@ -23,15 +32,16 @@ module.exports = (passport) =>{
     router.post('/login', auth.login);
 
     //user routes 
-    router.get('/user',isLoggedIn,user.home)
+    router.get('/user',isLoggedIn,user.home);
     router.get('/questions',isLoggedIn,user.questions);
     router.get('/battleship',isLoggedIn,user.battleship);
     router.get('/questions/:id', isLoggedIn, user.questionbyid);
 
     //admin routes
-    router.post('/addquestion',isLoggedIn,admin.addquestion);
-    router.put('/updatequestion/:id',isLoggedIn,admin.updatequestion);
-
+    router.get('/addquestion',isAdminLoggedIn,admin.addquestion);
+    router.get('/updatequestion/:id',isAdminLoggedIn,admin.updatequestion);
+    router.post('/addquestion',isAdminLoggedIn,admin.addquestion);
+    router.post('/updatequestion/:id',isAdminLoggedIn,admin.updatequestion);
     
     return router;
 }

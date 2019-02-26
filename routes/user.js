@@ -1,6 +1,5 @@
 const db = require('../models/dbcon');
 
-
 module.exports =  () =>{
     let exp = {};
 
@@ -11,7 +10,7 @@ module.exports =  () =>{
 
     //main homepage
     exp.questions = (req,res) =>{
-        res.send(req.user);
+        res.send('In the questions homepage');
     };
 
     //grid 
