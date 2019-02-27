@@ -6,7 +6,7 @@ module.exports =  () => {
 
     exp.addquestion = (req,res) => {
         if (req.method == 'GET')
-        	res.send('Inside add question');
+        	res.render('addQuestion');
         else if (req.method == 'POST') {
         	let insertJson = {};
         	try {
