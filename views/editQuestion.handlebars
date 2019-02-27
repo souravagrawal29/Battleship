@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Battleship | Prometheus'19</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/stylesheets/main.css" />
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+                <a href="/logout">Logout</a>
+				<!-- Header -->
+					<header id="header" class="alt">
+						<span class="logo"><img src="/images/logo.png" alt="" /></span>
+						<h1>Battleship</h1>
+						<p><strong>Prometheus '19</strong></p>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<!-- Introduction -->
+							<section id="intro" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<form method="POST" action="/editQuestion/{{request.params.id}}">
+                                            <div class="row uniform">
+                                                <div class="12u 12u$(small)">
+                                                    <label for="title">Title</label>
+                                                    <input type="text" name="title" value="{{question.title}}" required>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="body">Body</label>
+                                                    <textarea name="body" required>{{question.body}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="testcase1">Testcase 1 Input</label>
+                                                    <textarea name="testcase1">{{question.testcase1}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="answer1">Testcase 1 Output</label>
+                                                    <textarea name="answer1">{{question.answer1}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="testcase2">Testcase 2 Input</label>
+                                                    <textarea name="testcase2">{{question.testcase2}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="answer2">Testcase 2 Output</label>
+                                                    <textarea name="answer2">{{question.answer2}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="testcase3">Testcase 3 Input</label>
+                                                    <textarea name="testcase3">{{question.testcase3}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="answer3">Testcase 3 Output</label>
+                                                    <textarea name="answer3">{{question.answer3}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="points">Points</label>
+                                                    <textarea name="points">{{question.points}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="constraints">Constraints</label>
+                                                    <textarea name="constraints" required>{{question.constraints}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="input_format">Input Format</label>
+                                                    <textarea name="input_format" required>{{question.input_format}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="output_format">Output Format</label>
+                                                    <textarea name="output_format" required>{{question.output_format}}</textarea>
+                                                </div>                                                
+                                                <div class="12u 12u$(small)">
+                                                    <label for="sample_input">Sample Input</label>
+                                                    <textarea name="sample_input" required>{{question.sample_input}}</textarea>
+                                                </div>
+                                                <div class="12u 12u$(small)">
+                                                    <label for="sample_output">Sample Output</label>
+                                                    <textarea name="sample_output" required>{{question.sample_output}}</textarea>
+                                                </div>                                                
+                                                <div class="12u 12u$(small)">
+                                                    <ul class="actions">
+                                                        <li><input type="submit" value="SUBMIT" class="special"></li>
+                                                        <li><input type="reset" value="RESET" class="default"></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </form>
+									</div>
+								</div>
+							</section>
+					</div>
+				<!-- Footer -->
+				<footer id="footer">
+					<p class="copyright">IECSE Manipal</p>
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="/javascripts/jquery.min.js"></script>
+			<script src="/javascripts/jquery.scrollex.min.js"></script>
+			<script src="/javascripts/jquery.scrolly.min.js"></script>
+			<script src="/javascripts/skel.min.js"></script>
+			<script src="/javascripts/util.js"></script>
+			<script src="/javascripts/main.js"></script>
+
+	</body>
+</html>

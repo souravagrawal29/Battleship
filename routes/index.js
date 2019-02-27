@@ -38,10 +38,10 @@ module.exports = (passport) =>{
     router.get('/questions/:id', isLoggedIn, user.questionbyid);
 
     //admin routes
-    router.get('/addquestion', isAdminLoggedIn, admin.addquestion);
-    router.get('/updatequestion/:id', isAdminLoggedIn, admin.updatequestion);
-    router.post('/addquestion', isAdminLoggedIn, admin.addquestion);
-    router.post('/updatequestion/:id', isAdminLoggedIn, admin.updatequestion);
+    router.get('/addQuestion', isAdminLoggedIn, admin.addquestion);
+    router.get('/editQuestion/:id', isAdminLoggedIn, admin.updatequestion);
+    router.post('/addQuestion', isAdminLoggedIn, admin.addquestion);
+    router.post('/editQuestion/:id', isAdminLoggedIn, admin.updatequestion);
     router.get('/updategrid', isAdminLoggedIn, admin.initgrid);
     
     return router;

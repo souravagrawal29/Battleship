@@ -51,11 +51,10 @@ module.exports =  () => {
         		if(results.length==0)
         			return res.status(404).send('Page not found');
 
-        		/*res.render('updateQuestion', {
+        		res.render('editQuestion', {
         			request: req,
-        			question: result[0]
-        		});*/
-                res.send(results[0]);
+        			question: results[0]
+        		});
         	});
         } 
         else if (req.method=='POST') {
