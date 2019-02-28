@@ -10,7 +10,34 @@ module.exports =  () =>{
 
     //main homepage
     exp.questions = (req,res) =>{
-        res.send('In the questions homepage');
+        db.query('SELECT Questions.*,QLogs.uid,QLogs.solved,QLogs.attempt_no from Questions LEFT OUTER JOIN QLogs on Questions.qid=QLogs.qid AND QLogs.uid = ? ORDER BY QLogs.solved ASC',[req.user[0].uid], (err,result) =>{
+            if(err){
+                console.log(err);
+                return res.status(500).send('Internal Server Error');
+            }
+            console.log(result);
+            console.log(req.user[0].uid);
+            let quesarr = [];
+            quesarr.push(req.user[0].uid);
+            quesarr.push(req.user[0].score);
+            quesarr.push(req.user[0].missile);
+            for(let i=0;i<result.length;i++){
+                let ques={};
+                if(result[i].attempt_no!=null && result[i].solved ==0)
+                    result[i].attempt_no=3-result[i].attempt_no;
+                else if(result[i].attempt_no!=null && result[i].solved==1)
+                    result[i].attempt_no=null;
+                else if(!result[i].attempt_no)
+                    result[i].attempt_no=3;
+                ques.qid = result[i].qid;
+                ques.title = result[i].title;
+                ques.points = result[i].points;
+                ques.solved = result[i].solved;
+                ques.attempt_no = result[i].attempt_no;
+                quesarr.push(ques);
+            }
+            res.send(quesarr);
+        });
     };
 
     //grid 
@@ -29,7 +56,7 @@ module.exports =  () =>{
                     return res.status(500).send('Internal Server Error');
                 }
                 let result = {ships, fired};
-                return res.json(result); // sends the locations of his fired missiles plus the location of his own ships
+                return res.json(result);
             });
         });
     };
