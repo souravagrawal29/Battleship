@@ -13,9 +13,9 @@ const isAdminLoggedIn = (req, res, next) => {
     if(req.isAuthenticated() && req.user[0].access == 1)
         return next();
     else if(req.isAuthenticated())
-        res.send('No admin permissions');
+        res.redirect('/questions');
     else
-        res.send('No user access');
+        res.redirect('/');
 }
 
 module.exports = (passport) =>{

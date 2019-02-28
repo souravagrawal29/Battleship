@@ -36,7 +36,22 @@ module.exports =  () =>{
 
     //viewing a particular question
     exp.questionbyid = (req,res) => {
-        res.send('viewing a question');
+        //res.send('viewing a question');
+        db.query('SELECT * FROM Questions WHERE qid = ?',[req.params.id],(err,results)=> {
+                if(err) {
+                    console.log(err);
+                    return res.status(500).send('Internal error');
+                }
+
+                if(results.length==0)
+                    return res.status(404).send('Page not found');
+
+                /*res.render('editQuestion', {
+                    request: req,
+                    question: results[0]
+                });*/
+                res.send(results[0]);
+            });
     };
 
     return exp;
