@@ -4,7 +4,7 @@ module.exports = (passport) =>{
     exp.login = passport.authenticate('local', {
         successRedirect: '/user',
         failureRedirect: '/',
-        failureFlash: true
+        failureFlash: false
     });
     
     return exp;

@@ -1,3 +1,5 @@
+//	IN CASE CONSOLE LOGS FAILURE TO PLACE SHIP RUN SCRIPT AGAIN
+
 #include <iostream>
 #include <time.h>
 #include <fstream>
@@ -138,7 +140,7 @@ int main()
 		cout << "\n";
 	}
 
-	ofstream fo("Battleship19/grid.txt");
+	ofstream fo("grid.txt");
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)

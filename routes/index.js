@@ -23,8 +23,9 @@ module.exports = (passport) =>{
     const auth = require('./auth')(passport);
     const user = require('./user')(passport);
     const admin = require('./admin')(passport);
+    const lb = require('./leaderboard')(passport);
     
-    router.get('/',(req,res)=>{
+    router.get('/', (req, res)=>{
         res.render('layouts/main');
     });
 
@@ -36,6 +37,7 @@ module.exports = (passport) =>{
     router.get('/questions', isLoggedIn, user.questions);
     router.get('/battleship', isLoggedIn, user.battleship);
     router.get('/questions/:id', isLoggedIn, user.questionbyid);
+    router.get('/leaderboard', isLoggedIn, lb.getLeaderboard);
 
     //admin routes
     router.get('/addQuestion', isAdminLoggedIn, admin.addquestion);
