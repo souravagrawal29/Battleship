@@ -15,8 +15,6 @@ module.exports =  () =>{
                 console.log(err);
                 return res.status(500).send('Internal Server Error');
             }
-            console.log(result);
-            console.log(req.user[0].uid);
             let quesarr = [];
             quesarr.push(req.user[0].uid);
             quesarr.push(req.user[0].score);
@@ -61,23 +59,49 @@ module.exports =  () =>{
         });
     };
 
-    //viewing a particular question
+    //viewing a question
     exp.questionbyid = (req,res) => {
-        //res.send('viewing a question');
-        db.query('SELECT * FROM Questions WHERE qid = ?',[req.params.id],(err,results)=> {
+        db.query('SELECT qid,title,body,testcase1,testcase2,testcase3,points,constraints,input_format,output_format,sample_input,sample_output FROM Questions WHERE qid = ?',[req.params.id],(err,results)=> {
                 if(err) {
                     console.log(err);
                     return res.status(500).send('Internal error');
                 }
-
                 if(results.length==0)
                     return res.status(404).send('Page not found');
-
-                /*res.render('editQuestion', {
-                    request: req,
-                    question: results[0]
-                });*/
-                res.send(results[0]);
+                db.query('SELECT * FROM QLogs where qid = ? and uid = ?',[req.params.id,req.user[0].uid],(err,log)=>{
+                    if(err){
+                        console.log(err);
+                        return res.status(500).send('Internal Server Error');
+                    }
+                    console.log(log);
+                    if(log.length==0){
+                        testcase = results[0].testcase1;
+                        ques={
+                            question: results[0],
+                            testcase: testcase
+                        };
+                        return res.status(200).send(ques);
+                    }
+                    else if(log.length==1){
+                        if(log[0].solved==1)
+                            testcase = 'You have already solved this question';
+                        if(log[0].attempt_no==1)
+                            testcase = results[0].testcase2;
+                        else if(log[0].attempt_no==2)
+                            testcase = results[0].testcase3;
+                        else 
+                            testcase = 'You have exhausted all your tries';
+                        let ques;
+                        ques={
+                            question: results[0],
+                            testcase: testcase
+                        };
+                        return res.status(200).send(ques);
+                    }
+                    else {
+                        res.status(500).send('Internal Server Error');
+                    }
+                });
             });
     };
 

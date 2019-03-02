@@ -18,6 +18,13 @@ const isAdminLoggedIn = (req, res, next) => {
         res.redirect('/');
 }
 
+const redirectIfLoggedIn = (req,res,next) => {
+    if(req.isAuthenticated())
+        res.redirect('/user');
+    else
+        return next();
+};
+
 module.exports = (passport) =>{
 
     const auth = require('./auth')(passport);
@@ -25,7 +32,7 @@ module.exports = (passport) =>{
     const admin = require('./admin')(passport);
     const lb = require('./leaderboard')(passport);
     
-    router.get('/', (req, res)=>{
+    router.get('/',redirectIfLoggedIn,(req, res)=>{
         res.render('layouts/main');
     });
 
