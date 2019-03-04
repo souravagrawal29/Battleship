@@ -10,7 +10,7 @@ const isLoggedIn = (req, res, next) =>{
 }
 
 const isAdminLoggedIn = (req, res, next) => {
-    if(req.isAuthenticated() && req.user[0].access == 1)
+    if(req.isAuthenticated() && req.user.access == 1)
         return next();
     else if(req.isAuthenticated())
         res.redirect('/questions');
@@ -44,6 +44,8 @@ module.exports = (passport) =>{
     router.get('/questions', isLoggedIn, user.questions);
     router.get('/battleship', isLoggedIn, user.battleship);
     router.get('/questions/:id', isLoggedIn, user.questionbyid);
+    router.post('/submit',isLoggedIn,user.submit);
+    router.post('/revive',isLoggedIn,user.revive);
     router.get('/leaderboard', isLoggedIn, lb.getLeaderboard);
 
     //admin routes

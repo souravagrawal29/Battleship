@@ -40,7 +40,7 @@ passport.use(new Strategy({
                 return done(null,false);
             }
             console.log('No error');
-            return done(null,result);
+            return done(null,result[0]);
         });
     })
 );

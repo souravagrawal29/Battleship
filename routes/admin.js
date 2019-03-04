@@ -93,8 +93,7 @@ module.exports =  () => {
     exp.initgrid = (req, res) => {
         grid.refreshgrid()
         .then(grid.load());
-
-        res.send('Grid Loaded');
+        return res.status(200).send('Grid Loaded');
     }
     
     return exp;

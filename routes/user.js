@@ -5,56 +5,53 @@ module.exports =  () =>{
 
     //instuctions page
     exp.home = (req,res) =>{
-        res.send('In the Rules page');
+        return res.status(200).send('In the Rules page');
     };
 
     //main homepage
     exp.questions = (req,res) =>{
-        db.query('SELECT Questions.*,QLogs.uid,QLogs.solved,QLogs.attempt_no from Questions LEFT OUTER JOIN QLogs on Questions.qid=QLogs.qid AND QLogs.uid = ? ORDER BY QLogs.solved ASC',[req.user[0].uid], (err,result) =>{
+        db.query('SELECT Questions.*,QLogs.uid,QLogs.solved,QLogs.attempt_no from Questions LEFT OUTER JOIN QLogs on Questions.qid=QLogs.qid AND QLogs.uid = ? ORDER BY QLogs.solved ASC',[req.user.uid], (err,result) =>{
             if(err){
                 console.log(err);
                 return res.status(500).send('Internal Server Error');
             }
-            let quesarr = [];
-            quesarr.push(req.user[0].uid);
-            quesarr.push(req.user[0].score);
-            quesarr.push(req.user[0].missile);
+            questions = [];
             for(let i=0;i<result.length;i++){
-                let ques={};
+                let que={};
                 if(result[i].attempt_no!=null && result[i].solved ==0)
                     result[i].attempt_no=3-result[i].attempt_no;
                 else if(result[i].attempt_no!=null && result[i].solved==1)
                     result[i].attempt_no=null;
                 else if(!result[i].attempt_no)
                     result[i].attempt_no=3;
-                ques.qid = result[i].qid;
-                ques.title = result[i].title;
-                ques.points = result[i].points;
-                ques.solved = result[i].solved;
-                ques.attempt_no = result[i].attempt_no;
-                quesarr.push(ques);
+                que.qid = result[i].qid;
+                que.title = result[i].title;
+                que.points = result[i].points;
+                que.solved = result[i].solved;
+                que.attempt_no = result[i].attempt_no;
+                questions.push(que);
             }
-            res.send(quesarr);
+            return res.status(200).send(questions);
         });
     };
 
     //grid 
     exp.battleship = (req,res) =>{
 
-        db.query('SELECT row,col,isactive from Grid WHERE uid=?',[req.user[0].uid],(err,ships)=>{
+        db.query('SELECT row,col,isactive from Grid WHERE uid=?',[req.user.uid],(err,ships)=>{
             if(err){
                 console.log(err);
                 return res.status(500).send('Internal Server Error');
             }
             if(ships.length==0)
                 return res.status(500).send('Internal Server Error');
-            db.query('SELECT row,col,hit from Shiplogs WHERE uid=?',[req.user[0].uid],(err,fired) =>{
+            db.query('SELECT row,col,hit from Shiplogs WHERE uid=?',[req.user.uid],(err,fired) =>{
                 if(err){
                     console.log(err);
                     return res.status(500).send('Internal Server Error');
                 }
                 let result = {ships, fired};
-                return res.json(result);
+                return res.status(200).send(result);
             });
         });
     };
@@ -68,12 +65,11 @@ module.exports =  () =>{
                 }
                 if(results.length==0)
                     return res.status(404).send('Page not found');
-                db.query('SELECT * FROM QLogs where qid = ? and uid = ?',[req.params.id,req.user[0].uid],(err,log)=>{
+                db.query('SELECT * FROM QLogs where qid = ? and uid = ?',[req.params.id,req.user.uid],(err,log)=>{
                     if(err){
                         console.log(err);
                         return res.status(500).send('Internal Server Error');
                     }
-                    console.log(log);
                     if(log.length==0){
                         testcase = results[0].testcase1;
                         ques={
@@ -99,11 +95,128 @@ module.exports =  () =>{
                         return res.status(200).send(ques);
                     }
                     else {
-                        res.status(500).send('Internal Server Error');
+                        return res.status(500).send('Internal Server Error');
                     }
                 });
             });
     };
 
+    //submit
+    exp.submit = (req,res) =>{
+        db.query('SELECT * FROM QLogs WHERE uid = ? AND qid = ?',[req.user.uid,req.body.question],(err,result)=>{
+            if(err){
+                console.log(err);
+                return res.status(500).send('Internal Server Error');
+            }
+            db.query('SELECT * FROM Questions WHERE qid = ?',[req.body.question],(err,question) =>{
+                if(err){
+                    console.log(err);
+                    return res.status(500).send('Internal Server Error');
+                }
+                if(result.length==0){
+                    let correct = false;
+                    if(question[0].answer1.trim()==req.body.answer.trim())
+                        correct = true;
+                    if(correct){
+                        let missiles = 1;
+                        if(question[0].points==100)
+                            missiles = 2;
+                        db.query('UPDATE Users SET score = score + ?, missile = missile + ? WHERE uid = ?',[question[0].points,missiles,req.user.uid],(err,upd) =>{
+                            if(err){
+                                console.log(err);
+                                return res.status(500).send('Internal Server Error');
+                            }
+                            db.query('INSERT INTO QLogs VALUES (?,?,1,1,NOW())',[req.user.uid,req.body.question],(err,ins)=>{
+                                if(err){
+                                    console.log(err);
+                                    res.status(500).send('Internal Server Error');
+                                }
+                                return res.status(200).send('Correct Answer')
+                            });
+                        });
+                    }
+                    else{
+                        db.query('INSERT INTO QLogs VALUES (?,?,0,1,NOW())',[req.user.uid,req.body.question],(err,ins)=>{
+                            if(err){
+                                console.log(err);
+                                return res.status(500).send('Internal Server Error');
+                            }
+                            return res.status(200).send('Wrong Answer');
+                        });
+                    }
+                }
+                else if(result.length==1){
+                    if(result[0].solved==1)
+                        return res.status(200).send('You have already solved this question');
+                    if(result[0].attempt_no>2)
+                        return res.status(200).send('You have exhausted all tries');
+                    let correct = false;
+                    if(result[0].attempt_no==1 && question[0].answer2.trim()==req.body.answer.trim())
+                        correct = true;
+                    else if(result[0].attempt_no==2 && question[0].answer3.trim()==req.body.answer.trim())
+                        correct = true;
+                    if(correct){
+                        let missiles = 1;
+                        if(question[0].points==100)
+                            missiles = 2;
+                        db.query('UPDATE Users SET score = score + ?, missile = missile + ? WHERE uid = ?',[question[0].points,missiles,req.user.uid],(err,corr)=>{
+                            if(err){
+                                console.log(err);
+                                return res.status(500).send('Internal Server Error');
+                            }
+                            db.query('UPDATE QLogs SET attempt_no = attempt_no+1, solved = 1 WHERE qid = ? AND uid = ?',[req.body.question,req.user.uid],(err,update)=>{
+                                if(err){
+                                    console.log(err);
+                                    return res.status(500).send('Internal Server Error');
+                                }
+                                return res.status(200).send('Correct Answer');
+                            });
+                        });
+                    }
+                    else{
+                        db.query('UPDATE QLogs SET attempt_no = attempt_no+1 WHERE qid = ? AND uid = ?',[req.body.question,req.user.uid],(err,update) =>{
+                            if(err){
+                                console.log(err);
+                                return res.status(500).send('Internal Server Error');
+                            }
+                            return res.status(200).send('Wrong Answer');
+                        });
+                    }
+                }           
+            });
+        });
+    };
+
+    //revive a ship block
+    exp.revive = (req,res) =>{
+        db.query('SELECT * FROM Grid WHERE row = ? AND col = ? AND uid = ?',[req.body.row,req.body.col,req.user.uid],(err,result) =>{
+            if(err){
+                console.log(err);
+                return res.status.send('Internal Server Error');
+            }
+            if(result.length==0)
+                return res.status(200).send('Your ship doesnt exist in the given coordinates');
+            if(result[0].isactive==1)
+                return res.status(200).send('Ship is already active');
+            db.query('UPDATE Users SET missile = missile-1 WHERE missile >= 1 AND uid = ?',[req.user.uid],(err,result)=>{
+                if(err){
+                    console.log(err);
+                    return res.status(500).send('Internal Server Error');
+                }
+                if(result.affectedRows ==0)
+                    return res.status(200).send('Insufficient Missiles');
+
+                db.query('UPDATE Grid SET isactive = 1 WHERE row = ? AND col = ? AND uid = ?',[req.body.row,req.body.col,req.user.uid],(err,actv) =>{
+                    if(err){
+                        console.log(err);
+                        return res.status(500).send('Internal Server Error');
+                    }
+                    return res.status(200).send('Ship block revived');
+                });
+            });
+            
+        });
+    };
+
     return exp;
-};
+}
