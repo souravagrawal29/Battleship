@@ -6,6 +6,11 @@ module.exports = (passport) =>{
         failureRedirect: '/',
         failureFlash: false
     });
+
+    exp.logout = (req,res)=>{
+        req.logout();
+        res.redirect('/');
+    };
     
     return exp;
 }

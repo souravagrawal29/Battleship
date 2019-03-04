@@ -38,6 +38,7 @@ module.exports = (passport) =>{
 
     //auth routes
     router.post('/login', auth.login);
+    router.get('/logout',auth.logout);
 
     //user routes 
     router.get('/user', isLoggedIn, user.home);
