@@ -297,6 +297,8 @@ module.exports =  () =>{
                             return res.status(500).send('Internal Server Error');
                         }
                     });
+
+                    return res.status(500).send('Hit');
                 }
 
                 else {
@@ -316,6 +318,8 @@ module.exports =  () =>{
                             return res.status(500).send('Internal Server Error');
                         }
                     });
+
+                    return res.status(500).send('Miss');
                 }
             }
 
