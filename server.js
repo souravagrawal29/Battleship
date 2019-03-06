@@ -31,15 +31,16 @@ passport.use(new Strategy({
     },
     (username, password, done) =>{
         db.query('SELECT * FROM `Users` WHERE `username` = ? AND `pass` = ?', [username, password], (err, result) =>{
-            if(err){
+            if (err) {
                 console.log('error:', err.stack);
                 return;
             }
-            if(result.length == 0){
+
+            if (result.length == 0) {
                 console.log('Invalid Details');
                 return done(null,false);
             }
-            console.log('No error');
+
             return done(null,result[0]);
         });
     })

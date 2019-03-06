@@ -1,4 +1,5 @@
 const db = require('../models/dbcon');
+const moment = require('moment');
 
 module.exports =  () =>{
     let exp = {};
@@ -187,130 +188,142 @@ module.exports =  () =>{
         });
     };
 
-    //revive a ship block
-    exp.revive = (req,res) =>{
-        db.query('SELECT * FROM Grid WHERE row = ? AND col = ? AND uid = ?',[req.body.row,req.body.col,req.user.uid],(err,result) =>{
-            if(err){
+    // revive a ship block
+    exp.revive = (req, res) => {
+        db.query('SELECT * FROM Grid WHERE row = ? AND col = ? AND uid = ?', [req.body.row, req.body.col, req.user.uid], (err, result) => {
+            if (err){
                 console.log(err);
                 return res.status.send('Internal Server Error');
             }
-            if(result.length==0)
+
+            if (result.length == 0)
                 return res.status(200).send('Your ship doesnt exist in the given coordinates');
-            if(result[0].isactive==1)
+            
+            if (result[0].isactive == 1)
                 return res.status(200).send('Ship is already active');
-            db.query('UPDATE Users SET missile = missile-1 WHERE missile >= 1 AND uid = ?',[req.user.uid],(err,result)=>{
-                if(err){
+            
+            db.query('UPDATE Users SET missile = missile-1 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, result) => {
+                if (err){
                     console.log(err);
                     return res.status(500).send('Internal Server Error');
                 }
-                if(result.affectedRows ==0)
+                
+                if (result.affectedRows == 0)
                     return res.status(200).send('Insufficient Missiles');
 
-                db.query('UPDATE Grid SET isactive = 1 WHERE row = ? AND col = ? AND uid = ?',[req.body.row,req.body.col,req.user.uid],(err,actv) =>{
-                    if(err){
+                db.query('UPDATE Grid SET isactive = 1 WHERE row = ? AND col = ? AND uid = ?', [req.body.row, req.body.col, req.user.uid], (err, actv) => {
+                    if (err) {
                         console.log(err);
                         return res.status(500).send('Internal Server Error');
                     }
+
                     return res.status(200).send('Ship block revived');
                 });
-            });
-            
+            });  
         });
     };
+    
     //hit or miss 
+    exp.hit = (req, res) => {
+        var x_val = req.body.x_coor, y_val = req.body.y_coor;
 
-exp.hit = (req,res)=>{
-    db.query('SELECT * FROM Grid WHERE row = ? AND col = ?',[req.body.x_coor,req.body.y_coor,req.user.uid],(err,result) =>{
-        if(err){
-            console.log(err);
-            return res.status.send('Internal Server Error');
+        // check if missles are there 
+        if (req.user.missile < 1) {
+            return res.status(200).send('Insufficent Missles');
         }
-        console.log(result);
-        // //check if missles are there 
-        if(req.user.missiles < 1){
-            res.status(200).send('Insufficent Missles');
-            return res.redirect('/questions');
-        }
-        // //check for if its hit or miss 
-        if(!result){
-            res.status(200).send('No ship')
-        }
-        if(result[0].uid!=req.user.uid)
-         {
-            if(result[0].isactive){
-                //missile db+req.user update
-                req.users.missiles--;
-                db_query('UPDATE Users SET missile = missile -1 WHERE missile>=1 AND uid=?',[req.user.uid],(err,res)=>{
-                    if(err){
-                        console.log(err);
-                        return res.status(500).send('Internal Server Error');
-                    }
-                });
-                //points update req.user+dbquery
-                db_query('UPDATE Users SET score= score + 10 WHERE uid=?',[result[0].uid],(err,res)=>{
-                    if(err){
-                        console.log(err);
-                        return res.status(500).send('Internal Server Error');
-                    }
-                    else{
-                        console.log("db_users updated successful");
-                    }
-                });
-                req.users.score=req.users.score+10;
-                //insert into ship log hit
-                db_query('INSERT INTO Shiplogs VALUES(?,?,?,?)',[req.user.id,req.body.x_coor,req.body.y_coor,1],(err,res)=>{
-                    if(err){
-                        console.log(err);
-                        return res.status(500).send('Internal Server Error');
-                    }
-                    else{
-                        console.log("updated shiplog_db");
-                    }
-                });
-                //isAtive update in grid_db
-                db_query('UPDATE Grid SET isactive=0 WHERE uid=?',[result[0].uid],(err,res)=>{
-                    if(err){
-                        console.log(err);
-                        return res.status(500).send('Internal Server Error');
-                    }
-                    else{
-                        console.log("grid_db update successful");
-                    }
-                });
-            }
-         }
-        else
-        {
-            //missiles update
-            db_query('UPDATE Users SET missile = missile - 1 WHERE missle >= 1 AND uid = ?',[req.user.uid],(err,res)=>{
-                if(err){
-                    console.log(err);
-                    return res.status(500).send('Internal Server Error');
-                }
-                else{
-                    console.log("successfully updated user db");
-                }
-            });
 
-            req.users.missiles--;
-        //db missiles update
-        //no points update.
-        //     grid.isactive=true;
-        db_query('UPDATE Grid SET isactive=1 WHERE uid=?',[result[0].uid],(err,res)=>{
-            if(err){
+        db.query('SELECT * FROM Grid WHERE row = ? AND col = ?',[y_val, x_val], (err, result) => {
+            if (err) {
                 console.log(err);
-                return res.status(500).send('Internal Server Error');
+                return res.status.send('Internal Server Error');
             }
-            else{
-                console.log("grid_db update successful");
+            console.log(result);
+            
+            // check for if its hit or miss 
+            if (result.length == 0) {
+                // missile db+req.user update
+                req.user.missile--;
+                db.query('UPDATE Users SET missile = missile -1 WHERE uid = ?', [req.user.uid], (err, res) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send('Internal Server Error');
+                    }
+                });
+
+                // insert into ship log hit
+                db.query('INSERT INTO Shiplogs VALUES(?, ?, ?, ?, ?)', [req.user.uid, y_val, x_val, 0, String(moment().format('YYYY-MM-DD HH:MM'))], (err, res) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send('Internal Server Error');
+                    }
+                });
+
+                return res.status(200).send('No ship');
+            }
+
+            if (result[0].uid != req.user.uid)
+            {
+                if (result[0].isactive) {
+                    // missile db+req.user update
+                    req.user.missile--;
+                    db.query('UPDATE Users SET missile = missile -1 WHERE uid = ?', [req.user.uid], (err, res) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                    });
+                    
+                    // points update req.user+dbquery
+                    req.user.score += 10;
+                    db.query('UPDATE Users SET score = score + 10 WHERE uid = ?', [result[0].uid], (err, res) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                    });
+                    
+                    // insert into ship log hit
+                    db.query('INSERT INTO Shiplogs VALUES(?, ?, ?, ?, ?)', [req.user.uid, y_val, x_val, 1, String(moment().format('YYYY-MM-DD HH:MM'))], (err, res) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                    });
+
+                    // isAtive update in grid_db
+                    db.query('UPDATE Grid SET isactive = 0 WHERE row = ? AND col = ?',[y_val, x_val], (err, res) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                    });
+                }
+
+                else {
+                    // missile db+req.user update
+                    req.user.missile--;
+                    db.query('UPDATE Users SET missile = missile -1 WHERE uid = ?', [req.user.uid], (err, res) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                    });
+
+                    // insert into ship log hit
+                    db.query('INSERT INTO Shiplogs VALUES(?, ?, ?, ?, ?)', [req.user.uid, y_val, x_val, 0, String(moment().format('YYYY-MM-DD HH:MM'))], (err, res) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                    });
+                }
+            }
+
+            else {
+                return res.status(200).send('Cannot hit your own ship');
             }
         });
-        }
-    });
-};
+    };
 
     return exp;
 }
-
-
-

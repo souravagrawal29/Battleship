@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img  class="logo" src="/images/logo.png" id="icon" alt="User Icon" height="200" width="110"/>
+      </div>
+
+      <!-- Login Form -->
+      <form method="POST" action="/hit">
+        <input type="text" id="x_coordinate" class="fadeIn second" name="x_coor" placeholder="x_coordinate">
+        <input type="text" id="y-coordinate" class="fadeIn third" name="y_coor" placeholder="y_coordinate">
+        <input type="submit" class="fadeIn fourth" value="Hit!">
+      </form>
+    </div>
+  </div>
+</body>
+</html>

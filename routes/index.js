@@ -48,7 +48,10 @@ module.exports = (passport) =>{
     router.post('/submit',isLoggedIn,user.submit);
     router.post('/revive',isLoggedIn,user.revive);
     router.get('/leaderboard', isLoggedIn, lb.getLeaderboard);
-    router.get('/hit',isLoggedIn,user.hit)
+    router.get('/hit', isLoggedIn, (req, res) => {
+        res.render('hit');
+    });
+    router.post('/hit', isLoggedIn, user.hit);
 
     //admin routes
     router.get('/addQuestion', isAdminLoggedIn, admin.addquestion);
