@@ -48,6 +48,9 @@ module.exports = (passport) =>{
     router.post('/submit',isLoggedIn,user.submit);
     router.post('/revive',isLoggedIn,user.revive);
     router.get('/leaderboard', isLoggedIn, lb.getLeaderboard);
+    router.get('/grid', isLoggedIn, (req, res) => {
+        res.render('grid');
+    });
     router.get('/hit', isLoggedIn, (req, res) => {
         res.render('hit');
     });
