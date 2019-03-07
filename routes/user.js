@@ -39,19 +39,23 @@ module.exports =  () =>{
     //grid 
     exp.battleship = (req,res) =>{
 
-        db.query('SELECT row,col,isactive from Grid WHERE uid=?',[req.user.uid],(err,ships)=>{
-            if(err){
+        db.query('SELECT row, col, isactive FROM Grid WHERE uid = ?', [req.user.uid], (err, ships) => {
+            if (err) {
                 console.log(err);
                 return res.status(500).send('Internal Server Error');
             }
-            if(ships.length==0)
-                return res.status(500).send('Internal Server Error');
-            db.query('SELECT row,col,hit from Shiplogs WHERE uid=?',[req.user.uid],(err,fired) =>{
-                if(err){
+
+            if (ships.length == 0)
+                return res.status(500).send('No Ships Found');
+
+            db.query('SELECT row, col, hit FROM Shiplogs WHERE uid = ?', [req.user.uid], (err, fired) => {
+                if (err) {
                     console.log(err);
                     return res.status(500).send('Internal Server Error');
                 }
+
                 let result = {ships, fired};
+                
                 return res.status(200).send(result);
             });
         });
