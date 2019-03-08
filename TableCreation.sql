@@ -23,7 +23,6 @@ CREATE TABLE `Users` (
 	`access` INT(11) NOT NULL DEFAULT '0',
 	`score` INT(11) NOT NULL DEFAULT '0',
 	`missile` INT(11) NOT NULL DEFAULT '0',
-	`isloggedin` INT(11) NOT NULL,
 	PRIMARY KEY (`uid`)
 );
 
@@ -76,5 +75,3 @@ ALTER TABLE `QLogs` ADD CONSTRAINT `QLogs_fk1` FOREIGN KEY (`qid`) REFERENCES `Q
 ALTER TABLE `Shiplogs` ADD CONSTRAINT `Shiplogs_fk0` FOREIGN KEY (`uid`) REFERENCES `Users`(`uid`);
 
 ALTER TABLE `Grid` ADD CONSTRAINT `Grid_fk0` FOREIGN KEY (`uid`) REFERENCES `Users`(`uid`);
-
-ALTER TABLE `Users` DROP COLUMN `isloggedin`;
