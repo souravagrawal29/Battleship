@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const db = require('./models/dbcon')
+const favicon = require('serve-favicon');
 
 db.connect((err) =>{
     if(err){
@@ -18,6 +19,8 @@ db.connect((err) =>{
 });
 
 const app = express();
+
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 app.use(session({
     secret: 'battleship19',
