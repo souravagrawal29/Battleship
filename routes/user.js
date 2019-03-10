@@ -279,7 +279,7 @@ module.exports =  () =>{
                     
                     // points update req.user+dbquery
                     req.user.score += 10;
-                    db.query('UPDATE Users SET score = score + 10 WHERE uid = ?', [result[0].uid], (err, res) => {
+                    db.query('UPDATE Users SET score = score + 10 WHERE uid = ?', [req.user.uid], (err, res) => {
                         if (err) {
                             console.log(err);
                             return res.status(500).send('Internal Server Error');
@@ -332,6 +332,8 @@ module.exports =  () =>{
             }
         });
     };
+
+    
 
     return exp;
 }

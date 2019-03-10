@@ -1,33 +1,61 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<body>
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Tabs Titles -->
+	<head>
+		<title>Solid State by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
 
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <img  class="logo" src="/images/logo.png" id="icon" alt="User Icon" height="200" width="110"/>
-      </div>
 
-      <!-- Login Form -->
-      <form method="POST" action="/login">
-        <input type="text" id="login" class="fadeIn second" name="username" placeholder="login">
-        <input type="text" id="password" class="fadeIn third" name="pass" placeholder="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
-      </form>
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<div class="logo"><span ><img src="images/logo.png" alt=""></span></div>
+							<h1>Battleship</h1>
+							<h3>Prometheus '19</h3>
+						</div>
+					</section>
 
-      <!-- Remind Passowrd -->
-      <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
-      </div>
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<section>
+							<form method="post" action="login">
+								<div align="center">
+									<div class="col-6 col-12-xsmall">
+										<label for="username">Username</label>
+										<input type="text" name="username" id="demo-name" style="width:300px"  required />
+									</div><br>
+									<div class="col-6 col-12-xsmall">
+										<label for="pass">Password</label>
+										<input type="password" name="pass" id="demo-email" style="width:300px" required />
+									</div><br><br>
+									<div class="col-12">
+										<input type="submit" value="Login" class="primary" />
+									</div>
+								</div>
+								
+						</section>
 
-    </div>
-  </div>
-</body>
+					</section>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>
