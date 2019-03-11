@@ -42,14 +42,17 @@
 									<div class="col-12">
 										<input type="submit" value="Login" class="primary" />
 									</div>
+									{{#if loginMessage}}
+                                        <p>{{ loginMessage }}</p>
+                                    {{/if}}
+									<footer id="footer">
+										<p class="copyright">IECSE Manipal</p>
+									</footer>
 								</div>
-								
 						</section>
 
 					</section>
-					 <footer id="footer">
-					<p class="copyright">IECSE Manipal</p>
-				</footer>
+					 
 
 
 		<!-- Scripts -->

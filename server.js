@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
@@ -28,22 +29,21 @@ app.use(session({
     saveUninitialized: false
 }));
 
-passport.use(new Strategy({
+passport.use('local',new Strategy({
     usernameField: 'username',
-    passwordField: 'pass'
+    passwordField: 'pass',
+    passReqToCallback:true
     },
-    (username, password, done) =>{
+    (req, username, password, done) =>{
         db.query('SELECT * FROM `Users` WHERE `username` = ? AND `pass` = ?', [username, password], (err, result) =>{
             if (err) {
                 console.log('error:', err.stack);
-                return;
+                return done(err);
             }
-
             if (result.length == 0) {
                 console.log('Invalid Details');
-                return done(null,false);
+                return done(null,false,req.flash('loginMessage','User with credentials not found'));
             }
-
             return done(null,result[0]);
         });
     })
@@ -59,6 +59,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser('battleship19'));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 
 require('./config/passport')(passport);
