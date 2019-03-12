@@ -2444,7 +2444,7 @@ input, select, textarea {
 	}
 
 		ol li {
-			padding-left: 0.25em;
+			padding-left: 0.25em;			
 		}
 
 	ul {
@@ -2455,6 +2455,7 @@ input, select, textarea {
 
 		ul li {
 			padding-left: 0.5em;
+			word-wrap:break-word;
 		}
 
 		ul.alt {

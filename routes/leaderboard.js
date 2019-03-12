@@ -18,9 +18,9 @@ module.exports = () => {
 					users[i].rank = parseInt(i) + 1;
 				}
 
-				console.log(users);
-
-				res.render('leaderboard', {users: users.map(user => ({...user}))});
+				res.render('layouts/leaderboard', {
+					users: users.map(user => ({...user}))
+				});
 		});
 	}
 

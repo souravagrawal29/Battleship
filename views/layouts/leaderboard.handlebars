@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Battleship | Prometheus '19</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+    <div id="page-wrapper">
+        <header id="header">
+            <h1>Battleship | Prometheus '19</a></h1>
+            <nav>
+                <a href="/questions">Back to Questions</a>
+                <a href="/logout">Logout</a>                
+            </nav>
+        </header>
+        <section id="wrapper">
+            <div class="wrapper">
+                <div class="inner">
+                    <h3 class="major" style="font-size:30px;">Leaderboard</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#users}}
+                                <tr>
+                                    <td>{{rank}}</td>
+                                    <td>{{username}}</td>
+                                    <td>{{score}}</td>
+                                </tr>
+                                {{/users}}
+                            </tbody>                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer id="footer">
+            <div class="inner">
+                <p class="copyright">IECSE Manipal</p>
+            </div>
+        </footer>
+    </div>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

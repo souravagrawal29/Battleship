@@ -28,6 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(flash());
 
 passport.use('local',new Strategy({
     usernameField: 'username',
@@ -59,7 +60,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser('battleship19'));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+
 
 
 require('./config/passport')(passport);
