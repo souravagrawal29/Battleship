@@ -1,11 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-
 <head>
     <title>Battleship | Prometheus '19</title>
     <meta charset="utf-8" />
@@ -14,7 +8,6 @@
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
-
 <body class="is-preload">
     <div id="page-wrapper">
         <header id="header">
@@ -23,38 +16,38 @@
                 <a href="/logout">Logout</a>
             </nav>
         </header>
-        <section id="wrapper">            
+        <section id="wrapper">
             <div class="wrapper">
                 <div class="inner">
-                    <h3 class="major" style="font-size:30px;">Leaderboard</h3>                  
+                    <h3 class="major" style="font-size:30px;">Leaderboard</h3>
                     <div class="table-wrapper">
-                        <table class="alt">
+                        <table>
                             <thead>
                                 <tr>
                                     <th>Rank</th>
-                                    <th>Score</th>
                                     <th>Team</th>
+                                    <th>Score</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#users}}
                                 <tr>
                                     <td>{{rank}}</td>
-                                    <td>{{score}}</td>
                                     <td>{{username}}</td>
+                                    <td>{{score}}</td>
                                 </tr>
                                 {{/users}}
-                            </tbody>
+                            </tbody>                            
                         </table>
                     </div>
                 </div>
             </div>
         </section>
         <footer id="footer">
-			<div class="inner">
-				<p class="copyright">IECSE Manipal</p>
-			</div>
-		</footer>
+            <div class="inner">
+                <p class="copyright">IECSE Manipal</p>
+            </div>
+        </footer>
     </div>
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -63,7 +56,5 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-
 </body>
-
 </html>
