@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Battleship | Prometheus '19</title>
@@ -13,18 +8,16 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-
 		<!-- Page Wrapper -->
 			<div id="page-wrapper">
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Battleship | Prometheus '19</a></h1>
+						<h1>Battleship | Prometheus '19</a></h1>
                         <nav>
 							<a href="/logout">Logout</a>
-						</nav>
-                        
-					</header>			
+						</nav>                        
+					</header>
 
 				<!-- Wrapper -->
 					<section id="wrapper">
@@ -35,25 +28,52 @@
 						</header>
 
 						<!-- Content -->
-							<div class="wrapper">
+						<div class="wrapper">
 								<div class="inner">
-
-									<h3 class="major">Lorem ipsum dolor</h3>
-									<p>Morbi mattis mi consectetur tortor elementum, varius pellentesque velit convallis. sto. Donec id neque ipsum.</p>
-
-									<p>Vestibulum ultrices risus velit, sit amet blandit massa auctor sit amet. Sed eu lectus sem. Phasellus in odio at ipsum porttitor mollis id vel diam. Praesent sit amet posuere risus, eu faucibus lectus. Vivamus ex ligula, tempus pulvinar ipsum in, auctor porta quam. Proin nec commodo, vel scelerisque nisi scelerisque. Suspendisse id quam vel tortor tincidunt suscipit. Nullam auctor orci eu dolor consectetur, interdum ullamcorper ante tincidunt. Mauris felis nec felis elementum varius.</p>
-
-									
-                                </div>
+									<ul>
+									<li>
+										When the game starts each team has 150 coins and the base price for each question is 20 coins.
+									</li>
+									<li>
+										To be able to submit the solution or view the testcase for a question, you will need to buy it first.					
+									</li>
+									<li>
+										The question can be bought for any amount(Cap: 200) greater than or equal to the current base price of the question.				
+									</li>
+									<li>
+										Whenever a question is bought by any team for say <strong>x</strong> coins, the pot for that question
+										increases by <strong>x</strong> coins and the base price for that question is set to <strong>x+5</strong> coins.				
+									</li>
+									<li>
+										Whenever a team successfully solves a question, he gets the <strong>current pot + the amount he paid</strong> to buy the question.
+									</li>
+									<li>
+										The team with the most amount of coins left at the end will win (Obviously).
+									</li>
+									<li>
+										But hold on! If at some point during the game you feel you are low on money,
+										don't worry because we can lend you some. But it won't come free, we will charge a 50% interest.
+										So if you borrow <strong>x</strong> coins in total during the game, we will deduct <strong>1.5 * x</strong> at the end from you.
+									</li>
+									<li>
+										And it goes without saying that any attempt at cheating or any form of malpractice would result in immediate disqualification 
+										of your team.
+									</li>
+									<li>
+										That's it now, start coding.
+									</li>
+									</ul>								
+                                </div>								
 							</div>
-
+							<button class="default" onclick="window.location = '/questions'" style="position: relative; left: 80%">Continue</button>
 					</section>
-
+					
 				<!-- Footer -->
                 <footer id="footer">
-					<p class="copyright">IECSE Manipal</p>
+					<div class="inner">
+						<p class="copyright">IECSE Manipal</p>
+					</div>
 				</footer>
-					
 
 			</div>
 
@@ -64,6 +84,5 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
 	</body>
 </html>

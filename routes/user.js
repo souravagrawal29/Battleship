@@ -33,7 +33,11 @@ module.exports = () => {
                 questions.push(que);
             }
             console.log(req.user);
-            return res.status(200).send(questions);
+            //return res.status(200).send(questions);
+            res.render('layouts/questions', {
+                questions: questions,
+                request: req
+            });
         });
     };
 
