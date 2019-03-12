@@ -1,5 +1,4 @@
 const db = require('../models/dbcon');
-const moment = require('moment');
 
 module.exports = () => {
     let exp = {};
@@ -33,6 +32,7 @@ module.exports = () => {
                 que.attempt_no = result[i].attempt_no;
                 questions.push(que);
             }
+            console.log(req.user);
             return res.status(200).send(questions);
         });
     };
@@ -56,7 +56,7 @@ module.exports = () => {
                 }
 
                 let result = { ships, fired };
-
+                console.log(req.user);
                 return res.status(200).send(result);
             });
         });
