@@ -2773,11 +2773,12 @@ input, select, textarea {
 
 		table td {
 			padding: 0.75em 0.75em;
+			font-size: 1.1em;
 		}
 
 		table th {
 			color: #ffffff;
-			font-size: 0.9em;
+			font-size: 1.0em;
 			font-weight: 600;
 			padding: 0 0.75em 0.75em 0.75em;
 			text-align: left;
@@ -3344,7 +3345,7 @@ input, select, textarea {
 	#banner {
 		margin: auto;
 		width: 50%;
-		padding: 3em 0 0.75em 0 ;
+		padding: 3.8em 0 0.75em 0 ;
 	}
 
 		#banner .inner {
