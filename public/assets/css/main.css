@@ -3344,7 +3344,7 @@ input, select, textarea {
 	#banner {
 		margin: auto;
 		width: 50%;
-		padding: 10em 0 4.75em 0 ;
+		padding: 3em 0 0.75em 0 ;
 	}
 
 		#banner .inner {
@@ -3516,7 +3516,7 @@ input, select, textarea {
 /* Wrapper */
 
 	#wrapper > header {
-		padding: 6em 0 2.25em 0 ;
+		padding: 4em 0 1em 0 ;
 	}
 
 		#wrapper > header .inner {
@@ -3970,7 +3970,7 @@ input, select, textarea {
 /* Footer */
 
 	#footer .inner {
-		padding: 5em 0 3em 0 ;
+		padding: 0.25em 0 3em 0 ;
 		display: -moz-flex;
 		display: -webkit-flex;
 		display: -ms-flex;
