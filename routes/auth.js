@@ -9,9 +9,9 @@ module.exports = (passport) => {
 
     exp.isLoggedIn = (req, res, next) => {
         if(req.isAuthenticated())
-            next();
+            return next();
         else
-            res.redirect('/');
+            return res.redirect('/');
     };
 
     exp.isAdminLoggedIn = (req, res, next) => {
@@ -19,22 +19,22 @@ module.exports = (passport) => {
             return next();
         
         else if (req.isAuthenticated())
-            res.redirect('/questions');
+            return res.redirect('/questions');
         
         else
-            res.redirect('/');
+            return res.redirect('/');
     };
 
     exp.redirectIfLoggedIn = (req,res,next) => {
         if(req.isAuthenticated())
-            res.redirect('/user');
+            return res.redirect('/user');
         else
             return next();
     };
 
     exp.logout = (req, res) => {
         req.logout();
-        res.redirect('/');
+        return res.redirect('/');
     };
     
     return exp;

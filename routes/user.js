@@ -6,7 +6,7 @@ module.exports = () => {
     //instuctions page
     exp.home = (req, res) => {
         //return res.status(200).send('In the Rules page');
-        res.render('layouts/rules');
+        return res.render('layouts/rules');
     };
 
     //main homepage
@@ -32,7 +32,7 @@ module.exports = () => {
                 que.attempt_no = result[i].attempt_no;
                 questions.push(que);
             }
-            res.render('layouts/questions', {
+            return res.render('layouts/questions', {
                 questions: questions,
                 request: req
             });

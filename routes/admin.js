@@ -6,7 +6,7 @@ module.exports =  () => {
 
     exp.addquestion = (req,res) => {
         if (req.method == 'GET')
-        	res.render('addQuestion');
+        	return res.render('addQuestion');
         else if (req.method == 'POST') {
         	let insertJson = {};
         	try {
@@ -35,7 +35,7 @@ module.exports =  () => {
         			return res.status(500).send('Internal error');
         		}
                 console.log('Inserted successfully');
-        		res.redirect('/questions');
+        		return res.redirect('/questions');
         	});
         }        
     };
@@ -51,7 +51,7 @@ module.exports =  () => {
         		if(results.length==0)
         			return res.status(404).send('Page not found');
 
-        		res.render('editQuestion', {
+        		return res.render('editQuestion', {
         			request: req,
         			question: results[0]
         		});
@@ -85,7 +85,7 @@ module.exports =  () => {
                     return res.status(500).send('Internal server error');
                 }
                 console.log('Question updated');
-                res.redirect('/questions');
+                return res.redirect('/questions');
             });
         }
     };

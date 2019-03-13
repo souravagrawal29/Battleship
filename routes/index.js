@@ -10,7 +10,7 @@ module.exports = (passport) => {
     const lb = require('./leaderboard')(passport);
     
     router.get('/', auth.redirectIfLoggedIn, (req, res) => {
-        res.render('layouts/main');
+        return res.render('layouts/main');
     });
 
     //auth routes
@@ -26,7 +26,7 @@ module.exports = (passport) => {
     router.post('/revive', auth.isLoggedIn, user.revive);
     router.get('/leaderboard', auth.isLoggedIn, lb.getLeaderboard);
     router.get('/hit', auth.isLoggedIn, (req, res) => {
-        res.render('hit');
+        return res.render('hit');
     });
     router.post('/hit', auth.isLoggedIn, user.hit);
 
