@@ -36,18 +36,15 @@
 
 		<!-- Wrapper -->
 		<section id="wrapper">
-			
-			<!--<header>
-				<div class="inner">
-					<h2 style="font-size:20px;">Questions</h2>
-				</div>
-			</header>-->
 
 			<!-- Content -->
 			<div class="wrapper">
 				<div class="inner">
-					<h2 style="font-size:17px;">Points: {{request.user.score}} &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Missiles Earned: {{request.user.missile}}</h2>
-					<!--<h2 style="font-size:17px;" align="right">Missiles Earned: {{request.user.missile}}</h2>-->
+					<!--<h2 style="font-size:17px;">Points: {{request.user.score}} &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Missiles Earned: {{request.user.missile}}</h2>-->
+					<span style="display:flex;max-width:1200px;justify-content:space-between">
+						<h2 style="font-size:17px;">Points: {{request.user.score}}</h2>
+						<h2 style="font-size:17px;" >Missiles Earned: {{request.user.missile}}</h2>
+					</span>
 					<br>
 					<section>
 						<div class="table-wrapper">

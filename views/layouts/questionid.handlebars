@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Battleship | Prometheus '19</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <base href="/">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <h1>Battleship | Prometheus '19</a></h1>
+            <nav>
+                {{#if request.user.access}}
+                    <a href="/editQuestion/{{question.qid}}">Edit Question</a>
+                {{/if}}
+                <a href="/questions">Back to Questions</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        </header>
+
+        <!-- Wrapper -->
+        <section id="wrapper">
+            <header>
+                <div class="inner">
+                    <br>
+                    <span style="display:flex;max-width:1200px;justify-content:space-between">
+                        <h2 style="font-size:17px;">{{question.title}}</h2>
+                        <h2 style="font-size:17px;">Points: {{question.points}}</h2>
+                        <h2 style="font-size:17px;">Difficulty: {{{diff}}}</h2>
+                    </span>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="wrapper">
+                <div class="inner">
+                    
+                </div>
+            </div>
+            <button class="default" onclick="window.location = '/questions'" style="position: relative; left: 76%">Continue</button>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <p class="copyright">IECSE Manipal</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

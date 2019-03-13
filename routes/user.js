@@ -78,14 +78,22 @@ module.exports = () => {
                     console.log(err);
                     return res.status(500).send('Internal Server Error');
                 }
+                let testcase = '';
+                let diff = '';
+                if(results[0].points==50)
+                    diff = 'EASY';
+                else if(results[0].points==100)
+                    diff = 'MEDIUM';
                 if (log.length == 0) {
                     testcase = results[0].testcase1;
-                    ques = {
+                    return res.render('layouts/questionid', {
                         question: results[0],
-                        testcase: testcase
-                    };
-                    return res.status(200).send(ques);
-                } else if (log.length == 1) {
+                        request: req,
+                        testcase: testcase,
+                        diff: diff
+                    });
+                }
+                else if (log.length == 1) {
                     if (log[0].solved == 1)
                         testcase = 'You have already solved this question';
                     if (log[0].attempt_no == 1)
@@ -94,13 +102,14 @@ module.exports = () => {
                         testcase = results[0].testcase3;
                     else
                         testcase = 'You have exhausted all your tries';
-                    let ques;
-                    ques = {
+                    return res.render('layouts/questionid', {
                         question: results[0],
-                        testcase: testcase
-                    };
-                    return res.status(200).send(ques);
-                } else {
+                        request: req,
+                        testcase: testcase,
+                        diff: diff
+                    });
+                }
+                else {
                     return res.status(500).send('Internal Server Error');
                 }
             });
@@ -226,30 +235,30 @@ module.exports = () => {
     };
 
     //hit or miss 
-    exp.hit = (req,res) =>{
-        db.query('SELECT * FROM Grid WHERE uid = ? AND isactive = 1 ',[req.user.uid],(err,ship) =>{
-            if(err){
+    exp.hit = (req, res) => {
+        db.query('SELECT * FROM Grid WHERE uid = ? AND isactive = 1 ', [req.user.uid], (err, ship) => {
+            if (err) {
                 console.log(err);
                 return res.status(500).send('Internal Server Error');
             }
-            if(ship.length==0)
+            if (ship.length == 0)
                 return res.status(200).send('You need to revive your ship');
-            
-            db.query('SELECT * FROM Grid WHERE row = ? AND col = ?',[req.body.row,req.body.col],(err,result)=>{
-                if(err){
+
+            db.query('SELECT * FROM Grid WHERE row = ? AND col = ?', [req.body.row, req.body.col], (err, result) => {
+                if (err) {
                     console.log(err);
                     return res.status(500).send('Internal Server Error');
                 }
-                if(result.length==0 || (result.length ==1 && result[0].isactive==0)){
-                    db.query('UPDATE Users SET missile = missile -1 WHERE missile >= 1 AND uid = ?',[req.user.uid],(err,upd)=>{
-                        if(err){
+                if (result.length == 0 || (result.length == 1 && result[0].isactive == 0)) {
+                    db.query('UPDATE Users SET missile = missile -1 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
+                        if (err) {
                             console.log(err);
                             return res.status(500).send('Internal Server Error');
                         }
-                        if(upd.affectedRows==0)
+                        if (upd.affectedRows == 0)
                             return res.status(200).send('Insufficient Missiles');
-                        db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 0, NOW())',[req.user.uid,req.body.row,req.body.col],(err,ins)=>{
-                            if(err){
+                        db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 0, NOW())', [req.user.uid, req.body.row, req.body.col], (err, ins) => {
+                            if (err) {
                                 console.log(err);
                                 return res.status(500).send('Internal Server Error');
                             }
@@ -257,23 +266,23 @@ module.exports = () => {
                         });
                     });
                 }
-                else if(result.length == 1 && result[0].uid == req.user.uid)
+                else if (result.length == 1 && result[0].uid == req.user.uid)
                     return res.status(200).send('You cannot hit your own ship');
-                else if(result.length == 1 && result[0].uid!= req.user.uid){
-                    db.query('UPDATE Users SET missile = missile -1 AND score = score + 10 WHERE missile >= 1 AND uid = ?',[req.user.uid],(err,upd)=>{
-                        if(err){
+                else if (result.length == 1 && result[0].uid != req.user.uid) {
+                    db.query('UPDATE Users SET missile = missile -1 AND score = score + 10 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
+                        if (err) {
                             console.log(err);
                             return res.status(500).send('Internal Server Error');
                         }
-                        if(upd.affectedRows==0)
+                        if (upd.affectedRows == 0)
                             return res.status(200).send('Insufficient Missiles');
-                        db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 1, NOW())',[req.user.uid,req.body.row,req.body.col],(err, ins) =>{
-                            if(err){
+                        db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 1, NOW())', [req.user.uid, req.body.row, req.body.col], (err, ins) => {
+                            if (err) {
                                 console.log(err);
                                 return res.status(500).send('Internal Server Error');
                             }
-                            db.query('UPDATE Grid SET isactive = 0 WHERE row = ? AND  col = ?',[req.body.row,req.body.col],(err,gridupd) =>{
-                                if(err){
+                            db.query('UPDATE Grid SET isactive = 0 WHERE row = ? AND  col = ?', [req.body.row, req.body.col], (err, gridupd) => {
+                                if (err) {
                                     console.log(err);
                                     return res.status(500).send('Internal Server Error');
                                 }
