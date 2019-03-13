@@ -94,7 +94,17 @@ module.exports =  () => {
         grid.refreshgrid()
         .then(grid.load());
         return res.status(200).send('Grid Loaded');
-    }
+	}
+	
+	exp.viewships = (req,res)=>{
+		db.query('SELECT * FROM Grid', (err,result)=>{
+			if(err){
+				console.log(err);
+				return res.status(500).send('Internal Server Error');
+			}
+			return res.status(200).send(result);
+		});
+	};
     
     return exp;
 };
