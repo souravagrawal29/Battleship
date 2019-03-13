@@ -6,7 +6,7 @@ module.exports =  () => {
 
     exp.addquestion = (req,res) => {
         if (req.method == 'GET')
-        	return res.render('addQuestion');
+        	return res.render('layouts/addQuestion');
         else if (req.method == 'POST') {
         	let insertJson = {};
         	try {
@@ -51,7 +51,7 @@ module.exports =  () => {
         		if(results.length==0)
         			return res.status(404).send('Page not found');
 
-        		return res.render('editQuestion', {
+        		return res.render('layouts/editQuestion', {
         			request: req,
         			question: results[0]
         		});

@@ -20,7 +20,7 @@
             <h1>Battleship | Prometheus '19</a></h1>
             <nav>
                 {{#if request.user.access}}
-                    <a href="/editQuestion/{{question.qid}}">Edit Question</a>
+                <a href="/editQuestion/{{question.qid}}">Edit Question</a>
                 {{/if}}
                 <a href="/questions">Back to Questions</a>
                 <a href="/logout">Logout</a>
@@ -34,8 +34,8 @@
                     <br>
                     <span style="display:flex;max-width:1200px;justify-content:space-between">
                         <h2 style="font-size:17px;">{{question.title}}</h2>
-                        <h2 style="font-size:17px;">Points: {{question.points}}</h2>
-                        <h2 style="font-size:17px;">Difficulty: {{{diff}}}</h2>
+                        <h2 style="font-size:17px;">Points: {{question.points}}</h2>                        
+                        <h2 style="font-size:17px;">Difficulty: {{diff}}</h2>                
                     </span>
                 </div>
             </header>
@@ -43,10 +43,31 @@
             <!-- Content -->
             <div class="wrapper">
                 <div class="inner">
-                    
+                    {{{question.body}}}
+                    <h3><br>Input Format</h3>
+                    {{{question.input_format}}}
+                    <h3><br>Output Format</h3>
+                    {{{question.output_format}}}
+                    <h3><br>Constraints</h3>
+                    {{{question.constraints}}}
+                    <h3><br>Sample Input</h3>
+                    <pre><code>{{{question.sample_input}}}</code></pre>
+                    <h3>Sample Output</h3>
+                    <pre><code>{{{question.sample_output}}}</code></pre>
+                    <h3>Testcase Input</h3>
+                    <pre><code id="testcase">{{{testcase}}}</code></pre>
+                    <form action="javascript:submit()">
+                        <div class="field">
+							<label for="message">Your Output</label>
+							<textarea name="answer" id="ans" rows="2" placeholder="Enter your answer here"></textarea>
+						</div>
+                        <div class="col-12">
+                            <br>
+                            <input type="submit" value="Submit" class="primary" />
+                        </div>
+                    </form>
                 </div>
             </div>
-            <button class="default" onclick="window.location = '/questions'" style="position: relative; left: 76%">Continue</button>
         </section>
 
         <!-- Footer -->

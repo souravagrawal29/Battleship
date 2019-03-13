@@ -19,6 +19,9 @@
 		<header id="header">
 			<h1>Battleship | Prometheus '19</a></h1>
 			<nav>
+				{{#if request.user.access}}
+                <a href="/addQuestion">Add Question</a>
+                {{/if}}
 				<a href="/user">Rules</a>
 				<a href="/battleship">Grid</a>
 				<a href="/leaderboard">Leaderboard</a>
@@ -40,7 +43,6 @@
 			<!-- Content -->
 			<div class="wrapper">
 				<div class="inner">
-					<!--<h2 style="font-size:17px;">Points: {{request.user.score}} &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Missiles Earned: {{request.user.missile}}</h2>-->
 					<span style="display:flex;max-width:1200px;justify-content:space-between">
 						<h2 style="font-size:17px;">Points: {{request.user.score}}</h2>
 						<h2 style="font-size:17px;" >Missiles Earned: {{request.user.missile}}</h2>
@@ -69,11 +71,19 @@
 										{{/if}}
                                     </tr>
 									{{else}}
-									<tr onclick="window.location = '/questions/{{this.qid}}'">
-										<td>{{this.title}}</td>
-                                        <td>{{this.points}}</td>
-                                        <td>{{this.attempt_no}}</td>
-                                    </tr>
+										{{#if this.attempt_no}}
+										<tr onclick="window.location = '/questions/{{this.qid}}'">
+											<td>{{this.title}}</td>
+                                    	    <td>{{this.points}}</td>
+                                    	    <td>{{this.attempt_no}}</td>
+                                    	</tr>
+										{{else}}
+										<tr onclick="window.location = '/questions/{{this.qid}}'" class="solved">
+										<td><font color="#ee1c04">{{this.title}}</font></td>
+                                        <td><font color="#ee1c04">{{this.points}}</font></td>										
+										<td><font color="#ee1c04">{{this.attempt_no}}</font></td>
+                                        </tr>
+										{{/if}}
 									{{/if}}
                                     {{/each}}
 								</tbody>
