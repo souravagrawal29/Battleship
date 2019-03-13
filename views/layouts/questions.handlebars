@@ -46,8 +46,8 @@
 			<!-- Content -->
 			<div class="wrapper">
 				<div class="inner">
-					<h2 style="font-size:17px;" align="right">Current Points: {{request.user.score}}</h2>
-					<h2 style="font-size:17px;" align="right">Missiles Earned: {{request.user.missile}}</h2>
+					<h2 style="font-size:17px;">Points: {{request.user.score}} &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Missiles Earned: {{request.user.missile}}</h2>
+					<!--<h2 style="font-size:17px;" align="right">Missiles Earned: {{request.user.missile}}</h2>-->
 					<br>
 					<section>
 						<div class="table-wrapper">
@@ -104,6 +104,11 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+	<style>
+		td{
+			cursor: pointer;
+		}
+	</style>
 
 </body>
 
