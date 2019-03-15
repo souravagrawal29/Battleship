@@ -211,27 +211,37 @@ module.exports = () => {
             }
 
             if (result.length == 0)
-                return res.status(200).send('Your ship doesnt exist in the given coordinates');
+                return res.json({
+                    status: 1,
+                    message: 'Your ship doesnt exist in the given coordinates'
+                });
 
             if (result[0].isactive == 1)
-                return res.status(200).send('Ship is already active');
+                return res.json({
+                    status: 2,
+                    message: 'Ship is already active'
+                });
 
             db.query('UPDATE Users SET missile = missile-1 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, result) => {
                 if (err) {
                     console.log(err);
                     return res.status(500).send('Internal Server Error');
                 }
-
                 if (result.affectedRows == 0)
-                    return res.status(200).send('Insufficient Missiles');
-
+                    return res.json({
+                        status: 3,
+                        message:'Insufficient Missiles'
+                    });
                 db.query('UPDATE Grid SET isactive = 1 WHERE row = ? AND col = ? AND uid = ?', [req.body.row, req.body.col, req.user.uid], (err, actv) => {
                     if (err) {
                         console.log(err);
                         return res.status(500).send('Internal Server Error');
                     }
 
-                    return res.status(200).send('Ship block revived');
+                    return res.json({
+                        status: 4,
+                        message: 'Ship revived'
+                    });
                 });
             });
         });
@@ -255,8 +265,6 @@ module.exports = () => {
                     return res.status(500).send('Internal Server Error');
                 }
                 if (result.length == 0 || (result.length == 1 && result[0].isactive == 0 && result[0].uid!= req.user.uid)) {
-                    console.log('miss area 1');
-                    console.log('missile'+req.user.missile);
                     db.query('UPDATE Users SET missile = missile -1 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
                         if (err) {
                             console.log(err);
@@ -265,7 +273,7 @@ module.exports = () => {
                         if (upd.affectedRows == 0)
                             return res.json({
                                 status: 4,
-                                message: 'Insufficient Missiles1'
+                                message: 'Insufficient Missiles'
                             });
                         db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 0, NOW())', [req.user.uid, req.body.row, req.body.col], (err, ins) => {
                             if (err) {
@@ -293,7 +301,7 @@ module.exports = () => {
                         if (upd.affectedRows == 0)
                             return res.json({
                                 status: 4,
-                                message: 'Insufficient Missiles2'
+                                message: 'Insufficient Missiles'
                             });
                         db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 1, NOW())', [req.user.uid, req.body.row, req.body.col], (err, ins) => {
                             if (err) {

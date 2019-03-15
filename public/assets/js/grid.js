@@ -3,7 +3,7 @@ var cl = 'ships';
 var select;
 
 var shp = '../images/ship.jpg';
-var shpin = '../images/shipin.jpg'
+var shpin = '../images/shipin1.jpg'
 var miss = '../images/miss.jpg';
 var hiti = '../images/hit.jpg';
 
@@ -56,7 +56,6 @@ const getRowCol = (ele) => {
 
 const hit = () => {
 	if (confirm('Are you sure, you want to make the hit?')) {
-		console.log(select);
 		let row, col;
 		var uni = select.id;
 		for (c = 1; c <= n; c++) {
@@ -71,7 +70,6 @@ const hit = () => {
 		const body = {};
 		body.row = row;
 		body.col = col;
-		console.log(body);
 		fetch('/hit', {
 			method: 'POST',
 			body: JSON.stringify(body),
@@ -88,6 +86,32 @@ const hit = () => {
 
 
 const revive = () => {
-	confirm('Are you sure, you want to revive your ship?');
-	console.log('in revive');
+	if(confirm('Are you sure, you want to revive your ship?')){
+		let row, col;
+		var uni = select.id;
+		for (c = 1; c <= n; c++) {
+			let temp;
+			temp = uni - c;
+			if (temp % n == 0) {
+				row = temp / n;
+				col = c;
+				break;
+			}
+		}
+		const body = {};
+		body.row = row;
+		body.col = col;
+		fetch('/revive', {
+			method: 'POST',
+			body: JSON.stringify(body),
+			headers: { 'Content-Type': 'application/json' },
+		})
+		.then(res => res.json())
+		.then(data => {
+			alert(data.message);
+			location.reload();
+		})
+		.catch((err) => console.log(err));
+		console.log('In revive route');
+	}
 }
