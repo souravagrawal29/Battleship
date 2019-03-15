@@ -112,6 +112,5 @@ const revive = () => {
 			location.reload();
 		})
 		.catch((err) => console.log(err));
-		console.log('In revive route');
 	}
 }

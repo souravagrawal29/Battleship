@@ -11,7 +11,7 @@ module.exports = () => {
 
     //main homepage
     exp.questions = (req, res) => {
-        db.query('SELECT Questions.*,QLogs.uid,QLogs.solved,QLogs.attempt_no from Questions LEFT OUTER JOIN QLogs on Questions.qid=QLogs.qid AND QLogs.uid = ? ORDER BY QLogs.solved ASC', [req.user.uid], (err, result) => {
+        db.query('SELECT Questions.*,QLogs.uid,QLogs.solved,QLogs.attempt_no from Questions LEFT OUTER JOIN QLogs on Questions.qid=QLogs.qid AND QLogs.uid = ? ORDER BY Questions.qid ASC', [req.user.uid], (err, result) => {
             if (err) {
                 console.log(err);
                 return res.status(500).send('Internal Server Error');
@@ -149,7 +149,10 @@ module.exports = () => {
                                     console.log(err);
                                     res.status(500).send('Internal Server Error');
                                 }
-                                return res.status(200).send('Correct Answer')
+                                return res.json({
+                                    status: 1,
+                                    message: 'Correct Answer :)'
+                                });
                             });
                         });
                     } else {
@@ -158,14 +161,23 @@ module.exports = () => {
                                 console.log(err);
                                 return res.status(500).send('Internal Server Error');
                             }
-                            return res.status(200).send('Wrong Answer');
+                            return res.json({
+                                status: 2,
+                                message: 'Wrong Answer :('
+                            });
                         });
                     }
                 } else if (result.length == 1) {
                     if (result[0].solved == 1)
-                        return res.status(200).send('You have already solved this question');
+                        return res.json({
+                            status: 3,
+                            message: 'You have already solved this question'
+                        });
                     if (result[0].attempt_no > 2)
-                        return res.status(200).send('You have exhausted all tries');
+                        return res.json({
+                            status: 4,
+                            message: 'You have exhausted all tries'
+                        });
                     let correct = false;
                     if (result[0].attempt_no == 1 && question[0].answer2.trim() == req.body.answer.trim())
                         correct = true;
@@ -185,7 +197,10 @@ module.exports = () => {
                                     console.log(err);
                                     return res.status(500).send('Internal Server Error');
                                 }
-                                return res.status(200).send('Correct Answer');
+                                return res.json({
+                                    status: 1,
+                                    message: 'Correct Answer :)'
+                                });
                             });
                         });
                     } else {
@@ -194,7 +209,10 @@ module.exports = () => {
                                 console.log(err);
                                 return res.status(500).send('Internal Server Error');
                             }
-                            return res.status(200).send('Wrong Answer');
+                            return res.json({
+                                status: 2,
+                                message: 'Wrong Answer :('
+                            });
                         });
                     }
                 }
