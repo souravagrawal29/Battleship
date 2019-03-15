@@ -4109,3 +4109,19 @@ input, select, textarea {
 		}
 
 	}
+
+	  #grid { 
+		padding: 0px; 
+		margin: 0 auto;
+		width:90%;
+		border-collapse: unset;
+		border-spacing:8px;
+		
+	  }
+	  
+	  #grid tr td  { 
+		width: 60px; 
+		height: 60px;
+		border-radius:5px;
+  		background: #4c5c96;
+	  }

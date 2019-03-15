@@ -21,6 +21,7 @@ module.exports = (passport) => {
     router.get('/user', auth.isLoggedIn, user.home);
     router.get('/questions', auth.isLoggedIn, user.questions);
     router.get('/battleship', auth.isLoggedIn, user.battleship);
+    router.get('/battleship.json',auth.isLoggedIn,user.battleshipjson);
     router.get('/questions/:id', auth.isLoggedIn, user.questionbyid);
     router.post('/submit', auth.isLoggedIn, user.submit);
     router.post('/revive', auth.isLoggedIn, user.revive);
