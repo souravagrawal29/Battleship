@@ -1,3 +1,14 @@
+const copy = ()=>{
+    const cpy = document.createElement('textarea');
+    cpy.value = document.getElementById('testcase').innerHTML;
+    cpy.setAttribute('readonly','');
+    document.body.appendChild(cpy);
+    cpy.select();
+    document.execCommand('copy');
+    document.body.removeChild(cpy);
+};
+
+
 
 const submit = () =>{
     if(confirm('Are you sure, you want to submit?')){

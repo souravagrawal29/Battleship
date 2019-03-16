@@ -56,6 +56,10 @@
                     <h3>Sample Output</h3>
                     <pre><code>{{{question.sample_output}}}</code></pre>
                     <h3>Testcase Input</h3>
+                    <div class = "tooltip">
+                        <icon class="fa fa-copy" onclick="javascript:copy()"></icon>
+                        <span class="tooltiptext">Click to copy testcase</span>
+                    </div>
                     <pre><code id="testcase">{{{testcase}}}</code></pre>
                     <form action="javascript:submit()">
                         <div class="field">
@@ -88,6 +92,32 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/question.js"></script>
+
+    <style>
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            justify-content:space-between;
+            left: 97%
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+			width: 120px;
+			background-color: black;
+			color: #fff;
+			text-align: center;
+			padding: 5px 0;
+			border-radius: 6px;
+			position: absolute;
+			z-index: 1;
+        }
+        .tooltip:hover .tooltiptext {
+			visibility: visible;
+		}
+    </style>
+
 </body>
 
 </html>
