@@ -37,7 +37,7 @@ exports.load = () => {
 				if (grid[i][j] == 0)
 					continue;
 
-				db.query("INSERT INTO Grid VALUES (?, ?, (SELECT uid from Users WHERE uid = ?), ?)", [i, j, grid[i][j], 1], (err, results) => {
+				db.query("INSERT INTO Grid VALUES (?, ?, (SELECT uid from Users WHERE uid = ?), ?)", [i+1, j+1, grid[i][j], 1], (err, results) => {
 					if (err) {
 						console.log("Error: " + err);
 						return;
