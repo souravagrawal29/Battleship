@@ -39,7 +39,11 @@
 
 			<!-- Content -->
 			<div class="wrapper">
-				<div class="inner">
+				<div class="inner">					
+					<span style="display:flex;max-width:500px;justify-content:space-between">
+						<h2 style="font-size:17px;position:relative;left:6%;" >Points: {{request.user.score}}</h2>
+						<h2 style="font-size:17px;position:relative;left:72%;" >Missiles: {{request.user.missile}}</h2>
+					</span>					
                    <table id='grid'>
                     </table><br><br>
 					<div>

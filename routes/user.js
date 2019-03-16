@@ -40,7 +40,9 @@ module.exports = () => {
     };
 
     exp.battleship = (req,res) =>{
-        return res.render('layouts/grid');
+        return res.render('layouts/grid',{
+            request:req
+        });
     };
 
     //grid 
