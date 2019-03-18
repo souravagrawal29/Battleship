@@ -4125,3 +4125,9 @@ input, select, textarea {
 		border-radius:5px;
   		background: #4c5c96;
 	  }
+
+	  #grid img{
+		display:block; 
+		width:100%;
+		height:auto;
+	  }

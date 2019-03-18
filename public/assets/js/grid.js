@@ -3,7 +3,7 @@ var cl = 'ships';
 var select;
 
 var shp = '../images/ship.jpg';
-var shpin = '../images/shipin1.jpg'
+var shpin = '../images/shipin.jpg'
 var miss = '../images/miss.jpg';
 var hiti = '../images/hit.jpg';
 
@@ -78,7 +78,8 @@ const hit = () => {
 		.then(res => res.json())
 		.then(data => {
 			alert(data.message);
-			location.reload();
+			if (data.status==2 || data.status==5)
+				location.reload();
 		})
 		.catch((err) => console.log(err));
 	}
@@ -109,7 +110,8 @@ const revive = () => {
 		.then(res => res.json())
 		.then(data => {
 			alert(data.message);
-			location.reload();
+			if(data.status == 4)
+				location.reload();
 		})
 		.catch((err) => console.log(err));
 	}
