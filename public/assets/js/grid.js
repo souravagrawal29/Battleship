@@ -4,8 +4,8 @@ var select;
 
 var shp = '../images/ship.jpg';
 var shpin = '../images/shipin.jpg'
-var miss = '../images/miss.jpg';
-var hiti = '../images/hit.jpg';
+var miss = '../images/miss.png';
+var hiti = '../images/hit.png';
 
 fetch('/battleship.json', {
 	method: 'GET',
