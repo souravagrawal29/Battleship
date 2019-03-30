@@ -25,14 +25,20 @@ module.exports =  () => {
         		insertJson['sample_input'] = req.body['sample_input'].toString().trim();
         		insertJson['sample_output'] = req.body['sample_output'].toString().trim();
         	} catch(err) {
-        		console.log(err);
-        		return res.status(500).send('Internal error');
+				console.log(err);
+				return res.render('error',{
+					error: 500,
+					message: 'Internal Server Error'
+				});
         	}
 
         	db.query("INSERT INTO Questions SET ?", [insertJson], (err, result) => {
         		if(err) {
-        			console.log(err);
-        			return res.status(500).send('Internal error');
+					console.log(err);
+					return res.render('error',{
+						error: 500,
+						message: 'Internal Server Error'
+					});
         		}
                 console.log('Inserted successfully');
         		return res.redirect('/questions');
@@ -45,7 +51,10 @@ module.exports =  () => {
         	db.query('SELECT * FROM Questions WHERE qid = ?',[req.params.id],(err,results)=> {
         		if(err) {
         			console.log(err);
-        			return res.status(500).send('Internal error');
+        			return res.render('error',{
+						error: 500,
+						message: 'Internal Server Error'
+					});
         		}
 
         		if(results.length==0)
@@ -76,13 +85,19 @@ module.exports =  () => {
         		insertJson['sample_output'] = req.body['sample_output'].toString().trim();
         	} catch(err) {
         		console.log(err);
-        		return res.status(500).send('Internal error');
+        		return res.render('error',{
+					error: 500,
+					message: 'Internal Server Error'
+				});
         	}
 
         	db.query('UPDATE Questions SET ? WHERE qid = ?',[insertJson,req.params.id],(err,results) => {
                 if(err) {
                     console.log(err);
-                    return res.status(500).send('Internal server error');
+                    return res.render('error',{
+						error: 500,
+						message: 'Internal Server Error'
+					});
                 }
                 console.log('Question updated');
                 return res.redirect('/questions');
@@ -100,7 +115,10 @@ module.exports =  () => {
 		db.query('SELECT * FROM Grid', (err,result)=>{
 			if(err){
 				console.log(err);
-				return res.status(500).send('Internal Server Error');
+				return res.render('error',{
+					error: 500,
+					message: 'Internal Server Error'
+				});
 			}
 			return res.status(200).send(result);
 		});

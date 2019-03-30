@@ -26,9 +26,6 @@ module.exports = (passport) => {
     router.post('/submit', auth.isLoggedIn, user.submit);
     router.post('/revive', auth.isLoggedIn, user.revive);
     router.get('/leaderboard', auth.isLoggedIn, lb.getLeaderboard);
-    router.get('/hit', auth.isLoggedIn, (req, res) => {
-        return res.render('hit');
-    });
     router.post('/hit', auth.isLoggedIn, user.hit);
 
     //admin routes
