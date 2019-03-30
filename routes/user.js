@@ -88,8 +88,12 @@ module.exports = () => {
                     message: 'Internal Server Error'
                 });
             }
-            if (results.length == 0)
-                return res.status(404).send('Page not found');
+            if (results.length == 0){
+                return res.render('error',{
+                    error: 404,
+                    message: 'Page Not Found'
+                });
+            }
             db.query('SELECT * FROM QLogs where qid = ? and uid = ?', [req.params.id, req.user.uid], (err, log) => {
                 if (err) {
                     console.log(err);
@@ -104,6 +108,8 @@ module.exports = () => {
                     diff = 'EASY';
                 else if(results[0].points==100)
                     diff = 'MEDIUM';
+                else if(results[0].points==200)
+                    diff = 'HARD';
                 if (log.length == 0) {
                     testcase = results[0].testcase1;
                     return res.render('layouts/questionid', {
@@ -116,7 +122,7 @@ module.exports = () => {
                 else if (log.length == 1) {
                     if (log[0].solved == 1)
                         testcase = 'You have already solved this question';
-                    if (log[0].attempt_no == 1)
+                    else if (log[0].attempt_no == 1)
                         testcase = results[0].testcase2;
                     else if (log[0].attempt_no == 2)
                         testcase = results[0].testcase3;
@@ -165,6 +171,8 @@ module.exports = () => {
                         let missiles = 1;
                         if (question[0].points == 100)
                             missiles = 2;
+                        else if(question[0].points == 200)
+                            missiles = 4;
                         db.query('UPDATE Users SET score = score + ?, missile = missile + ? WHERE uid = ?', [question[0].points, missiles, req.user.uid], (err, upd) => {
                             if (err) {
                                 console.log(err);
@@ -222,6 +230,8 @@ module.exports = () => {
                         let missiles = 1;
                         if (question[0].points == 100)
                             missiles = 2;
+                        else if(question[0].points == 200)
+                            missiles = 4;
                         db.query('UPDATE Users SET score = score + ?, missile = missile + ? WHERE uid = ?', [question[0].points, missiles, req.user.uid], (err, corr) => {
                             if (err) {
                                 console.log(err);
@@ -376,7 +386,7 @@ module.exports = () => {
                         message: 'You cannot hit your own ship'
                     });
                 else if (result.length == 1 && result[0].uid != req.user.uid) {
-                    db.query('UPDATE Users SET missile = missile-1, score = score + 10 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
+                    db.query('UPDATE Users SET missile = missile-1, score = score + 75 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
                         if (err) {
                             console.log(err);
                             return res.render('error',{
