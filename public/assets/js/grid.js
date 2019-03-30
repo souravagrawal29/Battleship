@@ -2,8 +2,8 @@ const n = 11;
 var cl = 'ships';
 var select;
 
-var shp = '../images/ship.jpg';
-var shpin = '../images/shipin.jpg'
+var shp = '../images/ship.png';
+var shpin = '../images/shipin.png'
 var miss = '../images/miss.png';
 var hiti = '../images/hit.png';
 
