@@ -110,8 +110,14 @@ module.exports =  () => {
         .then(grid.load());
         return res.status(200).send('Grid Loaded');
 	}
+
+	exp.viewships = (req,res) =>{
+        return res.render('layouts/viewships',{
+            request:req
+        });
+	};
 	
-	exp.viewships = (req,res)=>{
+	exp.viewshipsjson = (req,res)=>{
 		db.query('SELECT * FROM Grid', (err,result)=>{
 			if(err){
 				console.log(err);
@@ -120,7 +126,9 @@ module.exports =  () => {
 					message: 'Internal Server Error'
 				});
 			}
-			return res.status(200).send(result);
+			return res.json({
+				ships :result
+			});
 		});
 	};
     

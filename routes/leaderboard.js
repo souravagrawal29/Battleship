@@ -11,7 +11,10 @@ module.exports = () => {
 			ORDER BY u.score DESC, health DESC', (err, users) => {
 				if (err) {
 					console.log(err);
-					return;
+					return res.render('layouts/error',{
+						error: 500,
+						message: 'Internal Server Error'
+					});
 				}
 
 				for (var i in users) {

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Battleship | Prometheus '19</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1>Battleship | Prometheus '19</a></h1>
+			<nav>
+				<a href="/user">Rules</a>
+				<a href="/questions">Back to Questions</a>
+				<a href="/leaderboard">Leaderboard</a>
+				<a href="/logout">Logout</a>
+			</nav>
+		</header>
+
+		<section id="banner">
+			<div class="inner">
+				<div class="logo"><span><img src="images/logo.png" alt=""></span></div>
+				<h1>Battleship</h1>
+				<h3>Prometheus '19</h3>
+			</div>
+		</section>
+
+		<!-- Wrapper -->
+		<section id="wrapper">
+
+			<!-- Content -->
+			<div class="wrapper">
+				<div class="inner">					
+					<span style="display:flex;max-width:500px;justify-content:space-between">
+						<h2 style="font-size:17px;position:relative;left:11%;" >Points: {{request.user.score}}</h2>
+						<h2 style="font-size:17px;position:relative;left:79%;" >Missiles: {{request.user.missile}}</h2>
+					</span>					
+                   <table id='grid'>
+                    </table><br><br>                   
+                </div>
+             </div>
+
+		</section>
+
+		<!-- Footer -->
+        <footer id="footer">
+			<div class="inner">
+				<p class="copyright">IECSE Manipal</p>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+    <script src="assets/js/admingrid.js"></script>
+	<style>
+		td{
+			cursor: pointer;
+		}
+	</style>
+
+</body>
+
+</html>

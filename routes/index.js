@@ -35,6 +35,7 @@ module.exports = (passport) => {
     router.post('/editQuestion/:id', auth.isAdminLoggedIn, admin.updatequestion);
     router.get('/updategrid', auth.isAdminLoggedIn, admin.initgrid);
     router.get('/viewships',auth.isAdminLoggedIn, admin.viewships);
+    router.get('/viewshipsjson',auth.isAdminLoggedIn, admin.viewshipsjson);
     
     return router;
 }
