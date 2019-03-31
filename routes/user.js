@@ -14,7 +14,7 @@ module.exports = () => {
         db.query('SELECT Questions.*,QLogs.uid,QLogs.solved,QLogs.attempt_no from Questions LEFT OUTER JOIN QLogs on Questions.qid=QLogs.qid AND QLogs.uid = ? ORDER BY Questions.qid ASC', [req.user.uid], (err, result) => {
             if (err) {
                 console.log(err);
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 500,
                     message: 'Internal Server Error'
                 });
@@ -53,7 +53,7 @@ module.exports = () => {
         db.query('SELECT row, col, isactive FROM Grid WHERE uid = ?', [req.user.uid], (err, ships) => {
             if (err) {
                 console.log(err);
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 500,
                     message: 'Internal Server Error'
                 });
@@ -65,7 +65,7 @@ module.exports = () => {
             db.query('SELECT row, col, hit FROM Shiplogs WHERE uid = ? ORDER BY logtime ASC', [req.user.uid], (err, fired) => {
                 if (err) {
                     console.log(err);
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -83,13 +83,13 @@ module.exports = () => {
         db.query('SELECT qid,title,body,testcase1,testcase2,testcase3,points,constraints,input_format,output_format,sample_input,sample_output FROM Questions WHERE qid = ?', [req.params.id], (err, results) => {
             if (err) {
                 console.log(err);
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 500,
                     message: 'Internal Server Error'
                 });
             }
             if (results.length == 0){
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 404,
                     message: 'Page Not Found'
                 });
@@ -97,7 +97,7 @@ module.exports = () => {
             db.query('SELECT * FROM QLogs where qid = ? and uid = ?', [req.params.id, req.user.uid], (err, log) => {
                 if (err) {
                     console.log(err);
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -136,7 +136,7 @@ module.exports = () => {
                     });
                 }
                 else {
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -150,7 +150,7 @@ module.exports = () => {
         db.query('SELECT * FROM QLogs WHERE uid = ? AND qid = ?', [req.user.uid, req.body.question], (err, result) => {
             if (err) {
                 console.log(err);
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 500,
                     message: 'Internal Server Error'
                 });
@@ -158,7 +158,7 @@ module.exports = () => {
             db.query('SELECT * FROM Questions WHERE qid = ?', [req.body.question], (err, question) => {
                 if (err) {
                     console.log(err);
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -176,7 +176,7 @@ module.exports = () => {
                         db.query('UPDATE Users SET score = score + ?, missile = missile + ? WHERE uid = ?', [question[0].points, missiles, req.user.uid], (err, upd) => {
                             if (err) {
                                 console.log(err);
-                                return res.render('error',{
+                                return res.render('layouts/error',{
                                     error: 500,
                                     message: 'Internal Server Error'
                                 });
@@ -184,7 +184,7 @@ module.exports = () => {
                             db.query('INSERT INTO QLogs VALUES (?,?,1,1,NOW())', [req.user.uid, req.body.question], (err, ins) => {
                                 if (err) {
                                     console.log(err);
-                                    return res.render('error',{
+                                    return res.render('layouts/error',{
                                         error: 500,
                                         message: 'Internal Server Error'
                                     });
@@ -199,7 +199,7 @@ module.exports = () => {
                         db.query('INSERT INTO QLogs VALUES (?,?,0,1,NOW())', [req.user.uid, req.body.question], (err, ins) => {
                             if (err) {
                                 console.log(err);
-                                return res.render('error',{
+                                return res.render('layouts/error',{
                                     error: 500,
                                     message: 'Internal Server Error'
                                 });
@@ -235,7 +235,7 @@ module.exports = () => {
                         db.query('UPDATE Users SET score = score + ?, missile = missile + ? WHERE uid = ?', [question[0].points, missiles, req.user.uid], (err, corr) => {
                             if (err) {
                                 console.log(err);
-                                return res.render('error',{
+                                return res.render('layouts/error',{
                                     error: 500,
                                     message: 'Internal Server Error'
                                 });
@@ -243,7 +243,7 @@ module.exports = () => {
                             db.query('UPDATE QLogs SET attempt_no = attempt_no+1, solved = 1 WHERE qid = ? AND uid = ?', [req.body.question, req.user.uid], (err, update) => {
                                 if (err) {
                                     console.log(err);
-                                    return res.render('error',{
+                                    return res.render('layouts/error',{
                                         error: 500,
                                         message: 'Internal Server Error'
                                     });
@@ -258,7 +258,7 @@ module.exports = () => {
                         db.query('UPDATE QLogs SET attempt_no = attempt_no+1 WHERE qid = ? AND uid = ?', [req.body.question, req.user.uid], (err, update) => {
                             if (err) {
                                 console.log(err);
-                                return res.render('error',{
+                                return res.render('layouts/error',{
                                     error: 500,
                                     message: 'Internal Server Error'
                                 });
@@ -279,7 +279,7 @@ module.exports = () => {
         db.query('SELECT * FROM Grid WHERE row = ? AND col = ? AND uid = ?', [req.body.row, req.body.col, req.user.uid], (err, result) => {
             if (err) {
                 console.log(err);
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 500,
                     message: 'Internal Server Error'
                 });
@@ -300,7 +300,7 @@ module.exports = () => {
             db.query('UPDATE Users SET missile = missile-1 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, result) => {
                 if (err) {
                     console.log(err);
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -313,7 +313,7 @@ module.exports = () => {
                 db.query('UPDATE Grid SET isactive = 1 WHERE row = ? AND col = ? AND uid = ?', [req.body.row, req.body.col, req.user.uid], (err, actv) => {
                     if (err) {
                         console.log(err);
-                        return res.render('error',{
+                        return res.render('layouts/error',{
                             error: 500,
                             message: 'Internal Server Error'
                         });
@@ -333,7 +333,7 @@ module.exports = () => {
         db.query('SELECT * FROM Grid WHERE uid = ? AND isactive = 1 ', [req.user.uid], (err, ship) => {
             if (err) {
                 console.log(err);
-                return res.render('error',{
+                return res.render('layouts/error',{
                     error: 500,
                     message: 'Internal Server Error'
                 });
@@ -346,7 +346,7 @@ module.exports = () => {
             db.query('SELECT * FROM Grid WHERE row = ? AND col = ?', [req.body.row, req.body.col], (err, result) => {
                 if (err) {
                     console.log(err);
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -355,7 +355,7 @@ module.exports = () => {
                     db.query('UPDATE Users SET missile = missile -1 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
                         if (err) {
                             console.log(err);
-                            return res.render('error',{
+                            return res.render('layouts/error',{
                                 error: 500,
                                 message: 'Internal Server Error'
                             });
@@ -368,7 +368,7 @@ module.exports = () => {
                         db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 0, NOW())', [req.user.uid, req.body.row, req.body.col], (err, ins) => {
                             if (err) {
                                 console.log(err);
-                                return res.render('error',{
+                                return res.render('layouts/error',{
                                     error: 500,
                                     message: 'Internal Server Error'
                                 });
@@ -389,7 +389,7 @@ module.exports = () => {
                     db.query('UPDATE Users SET missile = missile-1, score = score + 75 WHERE missile >= 1 AND uid = ?', [req.user.uid], (err, upd) => {
                         if (err) {
                             console.log(err);
-                            return res.render('error',{
+                            return res.render('layouts/error',{
                                 error: 500,
                                 message: 'Internal Server Error'
                             });
@@ -402,7 +402,7 @@ module.exports = () => {
                         db.query('INSERT INTO Shiplogs VALUES (?, ?, ?, 1, NOW())', [req.user.uid, req.body.row, req.body.col], (err, ins) => {
                             if (err) {
                                 console.log(err);
-                                return res.render('error',{
+                                return res.render('layouts/error',{
                                     error: 500,
                                     message: 'Internal Server Error'
                                 });
@@ -410,7 +410,7 @@ module.exports = () => {
                             db.query('UPDATE Grid SET isactive = 0 WHERE row = ? AND  col = ?', [req.body.row, req.body.col], (err, gridupd) => {
                                 if (err) {
                                     console.log(err);
-                                    return res.render('error',{
+                                    return res.render('layouts/error',{
                                         error: 500,
                                         message: 'Internal Server Error'
                                     });

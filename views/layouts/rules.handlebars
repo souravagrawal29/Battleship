@@ -32,37 +32,33 @@
 								<div class="inner">
 									<ul>
 									<li>
-										When the game starts each team has 150 coins and the base price for each question is 20 coins.
+										Battleship is an app based coding contest held by IECSE Manipal. The second round is based on the actual Battleship game.
 									</li>
 									<li>
-										To be able to submit the solution or view the testcase for a question, you will need to buy it first.					
+										At the beginning of the game, you will have 0 points and 0 missiles. You will have 2 ships of sizes 2 and 3 in tetris format. The co-ordinates of these ships will be automatically generated and will be visible on the grid.				
 									</li>
 									<li>
-										The question can be bought for any amount(Cap: 200) greater than or equal to the current base price of the question.				
+										There are 20 questions in total - 15 easy, 8 medium and 1 hard. On solving an easy question you'll get <b>50</b> points and <b>1</b> missile.	On solving a medium question you'll get <b>100</b> points and <b>2</b> missiles. On solving a hard question you'll get <b>200</b> points and <b>4</b> missiles.			
 									</li>
 									<li>
-										Whenever a question is bought by any team for say <strong>x</strong> coins, the pot for that question
-										increases by <strong>x</strong> coins and the base price for that question is set to <strong>x+5</strong> coins.				
+										Once you get a missile, you can use it to make a hit on the grid. If it is a <b>HIT</b> (an enemy ship is present on that cell), then you'll get <b>75</b> points and you'll lose one missile. If it is a <b>MISS</b> (no enemy ship was present on the cell), you'll lose <b>1</b> missile and earn no points.				
 									</li>
 									<li>
-										Whenever a team successfully solves a question, he gets the <strong>current pot + the amount he paid</strong> to buy the question.
+										Note that if you make a hit and an enemy ship exists but some other team has already destroyed that cell, it will be considered as a <b>MISS</b>.
 									</li>
 									<li>
-										The team with the most amount of coins left at the end will win (Obviously).
+										You do not have to use your missiles immediately. You can choose to use them at any time during the competition.
 									</li>
 									<li>
-										But hold on! If at some point during the game you feel you are low on money,
-										don't worry because we can lend you some. But it won't come free, we will charge a 50% interest.
-										So if you borrow <strong>x</strong> coins in total during the game, we will deduct <strong>1.5 * x</strong> at the end from you.
+										Other teams can hit your ships, and the corresponding cells will become inactive. If you want to be able to hit an enemy ship, at least one of your ship cells should be active.
 									</li>
 									<li>
-										And it goes without saying that any attempt at cheating or any form of malpractice would result in immediate disqualification 
-										of your team.
+										You also have the power to revive one of your cells at the cost of a missile.
 									</li>
 									<li>
 										That's it now, start coding.
 									</li>
-									</ul>								
+								</ul>									
                                 </div>								
 							</div>
 							<button class="default" onclick="window.location = '/questions'" style="position: relative; left: 76%">Continue</button>

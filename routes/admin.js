@@ -26,7 +26,7 @@ module.exports =  () => {
         		insertJson['sample_output'] = req.body['sample_output'].toString().trim();
         	} catch(err) {
 				console.log(err);
-				return res.render('error',{
+				return res.render('layouts/error',{
 					error: 500,
 					message: 'Internal Server Error'
 				});
@@ -35,7 +35,7 @@ module.exports =  () => {
         	db.query("INSERT INTO Questions SET ?", [insertJson], (err, result) => {
         		if(err) {
 					console.log(err);
-					return res.render('error',{
+					return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -51,7 +51,7 @@ module.exports =  () => {
         	db.query('SELECT * FROM Questions WHERE qid = ?',[req.params.id],(err,results)=> {
         		if(err) {
         			console.log(err);
-        			return res.render('error',{
+        			return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -85,7 +85,7 @@ module.exports =  () => {
         		insertJson['sample_output'] = req.body['sample_output'].toString().trim();
         	} catch(err) {
         		console.log(err);
-        		return res.render('error',{
+        		return res.render('layouts/error',{
 					error: 500,
 					message: 'Internal Server Error'
 				});
@@ -94,7 +94,7 @@ module.exports =  () => {
         	db.query('UPDATE Questions SET ? WHERE qid = ?',[insertJson,req.params.id],(err,results) => {
                 if(err) {
                     console.log(err);
-                    return res.render('error',{
+                    return res.render('layouts/error',{
 						error: 500,
 						message: 'Internal Server Error'
 					});
@@ -115,7 +115,7 @@ module.exports =  () => {
 		db.query('SELECT * FROM Grid', (err,result)=>{
 			if(err){
 				console.log(err);
-				return res.render('error',{
+				return res.render('layouts/error',{
 					error: 500,
 					message: 'Internal Server Error'
 				});
